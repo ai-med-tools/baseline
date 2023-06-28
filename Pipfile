@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+jsonschema = "*"
+python-dotenv = "*"
+aiohttp = "*"
+loguru = "*"
+click = "*"
+mypy = "*"
+pydantic = "*"
+requests = "*"
+colorama = "*"
+win32-setctime = "*"
+pytest = "*"
+python-socketio = {extras = ["asyncio-client"], version = "*"}
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"

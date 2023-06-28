@@ -1,0 +1,25 @@
+.idea
+.env
+
+# files
+/files/sessions/*.json
+/files/tests/*.json
+/files/psr_compares/*.json
+/files/custom/*.json
+/files/satellite/**/essays/*.json
+node_modules
+# logs
+*.log
+
+# pycache
+__pycache__
+/baseline/__pycache__
+/baseline/**/__pycache__
+
+# mypy
+.mypy_cache
+
+# setup
+build
+dist
+baseline.egg-info
