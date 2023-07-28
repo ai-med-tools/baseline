@@ -9,11 +9,15 @@ from typing import Union
 from pathlib import Path
 from loguru import logger
 
-from baseline.tools.env_config import DEBUG_MAX_MARKUP_DEMO_DELAY, CHECK_DIRECTORY_ANSWER, CHECK_DIRECTORY_ANSWER_DELAY, AUTOMATIC_ANSWER_FILE_GENERATE
+from baseline.solution.algorithmic_solution.AlgorythmicModel import AlgorythmicModel
+from baseline.solution.algorithmic_solution.DocumentModel import Document
+from baseline.tools.env_config import DEBUG_MAX_MARKUP_DEMO_DELAY, CHECK_DIRECTORY_ANSWER, CHECK_DIRECTORY_ANSWER_DELAY, \
+    AUTOMATIC_ANSWER_FILE_GENERATE
 
 from baseline.solution.implementation.solution_abstract import SolutionAbstract
 from baseline.epicrisis.epicrisis import Epicrisis
 from baseline.epicrisis.file import FileAbstract, FileFactory
+
 
 class SolutionDemo(SolutionAbstract):
     ## Размечаемый эпикриз
@@ -86,7 +90,8 @@ class SolutionDemo(SolutionAbstract):
                 self._logger.info(f'Solution file was created in automatic mode.')
                 self._logger.info(os.path.exists(f'files/{directory_conventional_name}'))
 
-            delay = (CHECK_DIRECTORY_ANSWER_DELAY if (CHECK_DIRECTORY_ANSWER_DELAY <= timeoutFile and CHECK_DIRECTORY_ANSWER_DELAY != 0) else timeoutFile)
+            delay = (CHECK_DIRECTORY_ANSWER_DELAY if (
+                    CHECK_DIRECTORY_ANSWER_DELAY <= timeoutFile and CHECK_DIRECTORY_ANSWER_DELAY != 0) else timeoutFile)
             counter = 0
             self._logger.info(delay)
 
@@ -142,10 +147,11 @@ class SolutionDemo(SolutionAbstract):
                               f'- the solution will be taken from the get_solution method.')
             return self.get_solution()
 
-
     def get_solution(self):
         ## make magic with epicrisis
-        return self.__DEMO_SOLUTION
+        document = Document(path_to_doc='files/'+self.epicrisis.path_to_xml, path_to_res='')
+        algorithm = AlgorythmicModel(document=document)
+        return algorithm.get_simple_solution()
 
     def execute(self, timeoutFile: int) -> list[dict[str, Union[int, str]]]:
         return self.__execute()
