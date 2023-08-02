@@ -5,6 +5,6 @@ from typing import Optional
 @dataclasses.dataclass(frozen=True)
 class SessionFileSendDto:
     session_id: Optional[int]
-    task_id: Optional[str]
-    epicrisis_id: Optional[str]
+    task_id: Optional[int]
+    epicrisis_id: Optional[int]
     message: Optional[str]
