@@ -58,7 +58,7 @@ def session():
     type=int,
     show_default=True,
     callback=min_validate(1),
-    help="Определяет, сколько файлов будет в сессии (применим только в алгоритмической сессии)")
+    help="Определяет, сколько файлов будет в сессии (применим только в тренировочной сессии)")
 @click.option(
     '--file-timeout', '-ft',
     type=int,
