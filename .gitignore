@@ -2,14 +2,11 @@
 .env
 
 # files
-/files/sessions/*.json
-/files/tests/*.json
-/files/psr_compares/*.json
-/files/custom/*.json
-/files/satellite/**/essays/*.json
+/files/sessions/**/*.json
+/files/sessions/**/*.xml
 node_modules
+developments
 # logs
-*.log
 
 # pycache
 __pycache__
