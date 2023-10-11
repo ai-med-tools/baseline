@@ -1,0 +1,9 @@
+docker-compose-dev.yml
+docker-compose.yml
+Dockerfile
+docs
+LICENSE
+Pipfile
+Pipfile.lock
+README.md
+.env.example

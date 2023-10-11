@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
 
-if [[ ! -z "$1" ]]; then
-    echo ${*}
-    exec  ${*}
-else
-    exec python3 --version
-fi
+python baseline.py core
+
+while $(kill -0 $(ps -C "python core" -o pid=))
+do
+  sleep 1
+done

@@ -11,7 +11,7 @@ services:
             # Correct the path to your Dockerfile
             dockerfile: Dockerfile
         container_name: baseline
-        image: baseline
+        image: cr.yandex/crppqtghoimgqql91veb/baseline:${tag}
         volumes:
             - '${PWD}:/app:delegated'
             - '${PWD}/files:/app/files:delegated'

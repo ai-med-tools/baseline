@@ -1,7 +1,7 @@
 #!/bin/bash
 IS_RUNNING=$(docker-compose ps -q baseline)
 if [[ "$IS_RUNNING" != "" ]]; then
-  docker-compose exec -T node-pku sh -c "python baseline.py $*"
+  docker-compose exec -T baseline sh -c "python baseline.py $*"
 else
   echo 'Контейнер Baseline не создан. Попробуйте поднять его с помощью команды docker-compose up -d'
 fi
