@@ -1,0 +1,13 @@
+version: '3.4'
+
+# networks:
+#   localhost:
+#     external: true
+
+services:
+    baseline:
+        volumes:
+            - '${PWD}:/app:delegated'
+            - '${PWD}/files:/app/files:delegated'
+            - '${PWD}/tmp:/app/tmp:delegated'
+            - '${PWD}/logs:/app/logs'
