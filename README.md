@@ -11,7 +11,7 @@
 ## Требования для работы Baseline
 
 -   [docker](https://docs.docker.com/get-docker/)
--   [docker-compose](https://docs.docker.com/compose/install/) последней версии. (Не менее версии 2)
+-   [docker compose](https://docs.docker.com/compose/install/) v2 +
 
 ## Развертывание и установка:
 > При наличии ошибок всегда проверяйте наличие актуальной версии.
