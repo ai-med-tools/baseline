@@ -9,6 +9,6 @@ services:
         container_name: baseline
         image: cr.yandex/crppqtghoimgqql91veb/baseline:${tag}
         volumes:
-            - '${PWD}/files:/app/files:delegated'
-            - '${PWD}/tmp:/app/tmp:delegated'
-            - '${PWD}/logs:/app/logs'
+            - './files:/app/files:delegated'
+            - './tmp:/app/tmp:delegated'
+            - './logs:/app/logs'
