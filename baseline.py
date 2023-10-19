@@ -36,7 +36,7 @@ class BaselineCommands(object):
             ping = 'ping'
             sio = socketio.Client()
             sio.connect(f'{perfomance["aimed_host"]}?token={perfomance["token"]}&ping={ping}', namespaces=['/baseline'],
-                        transports=['websocket'])
+                        transports=['websocket'], wait=True, wait_timeout=3)
             sio.disconnect()
         except Exception as e:
             print(e)
