@@ -9,6 +9,7 @@ from validator import Validator, NotJsonContentInFileError, TooManyObjectsInTheA
 from validator import JsonIsEmpty, StructureJsonIsIncorrect
 from cfg_support import get_perfomance
 import socketio
+from datetime import datetime
 
 
 class BaselineCommands(object):
@@ -17,8 +18,10 @@ class BaselineCommands(object):
         self.main_output_queue = posixmq.Queue('/inline')
 
     def core(self):
+        f = open("attempt.txt", "w+")
+        current_datetime = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
+        f.write('Recorded at: %s\n' % current_datetime)
         perfomance = get_perfomance()
-
 
         pid = None
         for proc in psutil.process_iter(['pid', 'name', 'username']):
@@ -30,10 +33,13 @@ class BaselineCommands(object):
 
         try:
             # standard Python
+            ping = 'ping'
             sio = socketio.Client()
-            sio.connect(f'{perfomance["aimed_host"]}?token={perfomance["token"]}', namespaces=['/baseline'], transports=['websocket'])
+            sio.connect(f'{perfomance["aimed_host"]}?token={perfomance["token"]}&ping={ping}', namespaces=['/baseline'],
+                        transports=['websocket'])
             sio.disconnect()
-        except:
+        except Exception as e:
+            print(e)
             print(f'Please check the correctness of the entered address in the creds.cfg file or contact'
                   f' the platform administrator.'
                   f' The platform does not respond to connection requests over WS.')
@@ -42,7 +48,8 @@ class BaselineCommands(object):
         try:
             os.system('python core.py')
             print(f'Core start successfully.')
-        except:
+        except Exception as error:
+            print(error)
             print(f'An error occurred while starting the core.')
 
     def kill(self):
@@ -72,15 +79,15 @@ class BaselineCommands(object):
                 return
 
         initial_params = dict(
-                op='start',
-                data={
-                    'contest': contest,
-                    'params': {
-                        'stage': stage,
-                        'sessionType': type,
-                    }
+            op='start',
+            data={
+                'contest': contest,
+                'params': {
+                    'stage': stage,
+                    'sessionType': type,
                 }
-            )
+            }
+        )
         if count:
             initial_params["data"]["params"]["countFiles"] = count
 
