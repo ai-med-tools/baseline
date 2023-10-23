@@ -104,7 +104,7 @@ class BaselineCommands(object):
         print(answer)
         pass
 
-    def send(self, path):
+    def send(self, path, taskid):
         pid = None
         for proc in psutil.process_iter(['pid', 'name', 'username']):
             if proc.cmdline() == ['python', 'core.py']:
@@ -116,6 +116,10 @@ class BaselineCommands(object):
         check_file = os.path.isfile(path)
         if not check_file:
             print(solution_file_doesnt_exist_const)
+            return
+
+        if not taskid:
+            print(f'taskid is required argument, the command cannot be executed')
             return
 
         currentsessionid = get_current_session_id()
@@ -145,9 +149,7 @@ class BaselineCommands(object):
             dict(
                 op="send",
                 data={
-                    "taskId": int(currenttasksid),
-                    "epicrisisId": int(currentepicrisisid),
-                    "sessionId": int(currentsessionid),
+                    "taskId": int(taskid),
                     "path": path,
                 }
             ), priority=1
