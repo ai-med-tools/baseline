@@ -18,9 +18,6 @@ class BaselineCommands(object):
         self.main_output_queue = posixmq.Queue('/inline')
 
     def core(self):
-        f = open("attempt.txt", "w+")
-        current_datetime = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
-        f.write('Recorded at: %s\n' % current_datetime)
         perfomance = get_perfomance()
 
         pid = None

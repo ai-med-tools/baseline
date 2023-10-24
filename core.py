@@ -32,7 +32,7 @@ def native_baseline_queue():
         if msg["op"] == "send":
             check_file = os.path.join(main_dir, msg["data"]["path"])
             try:
-                logger.info(dict(op="Try to send file.", epicrisisId=msg["data"]["epicrisisId"]))
+                logger.info(dict(op="Try to send file.", epicrisisId=msg["data"]["taskId"]))
                 with open(check_file, 'r') as f:
                     solution_raw_content = f.read()
 
