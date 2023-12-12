@@ -10,7 +10,7 @@ Current OUTPUT queue state - 0***
 - ```docker-compose exec -iT baseline sh -c "python baseline.py kill"``` - поиск и завершение процесса core.py. Закроет соединение с платформой и отключит сам процесс от внутренней очереди.# Документация по доступным командам
 ### Если утилита стартовала корректно
 
-- ```docker-compose exec -iT baseline sh -c "python baseline.py start --contest=finder --stage=qualifying --type=training --count=10 --timeout=10"```
+- ```docker-compose exec -iT baseline sh -c "python baseline.py start --contest=doctor --stage=qualifying --type=training --count=10 --timeout=10"```
 
 Список параметров - 
 1) ***contest*** - вид конкурса. возможные значения - **finder** / **doctor**
