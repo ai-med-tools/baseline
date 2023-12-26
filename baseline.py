@@ -1,4 +1,5 @@
 import fire, os, json, time, psutil
+import mureq
 from ipcqueue import posixmq
 from baseline_constants import session_start_success_const, solution_file_doesnt_exist_const
 from baseline_constants import data_not_resolved_const
@@ -9,7 +10,7 @@ from validator import Validator, NotJsonContentInFileError, TooManyObjectsInTheA
 from validator import JsonIsEmpty, StructureJsonIsIncorrect
 from cfg_support import get_perfomance
 import socketio
-from datetime import datetime
+from log import logger
 
 
 class BaselineCommands(object):
@@ -125,6 +126,7 @@ class BaselineCommands(object):
 
         if not currentsessionid or not currentepicrisisid or not currenttasksid:
             print(data_not_resolved_const)
+            return
 
         try:
             validator = Validator(path)
@@ -142,15 +144,26 @@ class BaselineCommands(object):
             print(sjii)
             return
 
-        self.main_input_queue.put(
-            dict(
-                op="send",
-                data={
-                    "taskId": int(taskid),
-                    "path": path,
-                }
-            ), priority=1
-        )
+        try:
+            perfomance = get_perfomance()
+            main_dir = os.path.dirname(os.path.abspath(__file__))
+            check_file = os.path.join(main_dir, path)
+            with open(check_file, 'r') as f:
+                solution_raw_content = f.read()
+
+            solution_from_file = json.loads(solution_raw_content)
+            response = mureq.post(perfomance["download_host"]+'/upload-result',
+                                  json={'token': perfomance["token"], 'taskId': taskid, 'answer': solution_from_file})
+            if response.status_code == 201:
+                logger.info(dict(op='file-send', status='success'))
+                print('File send success')
+            else:
+                raise Exception
+
+        except Exception as e:
+            logger.info(dict(op='file-send', status='error'))
+            print(e)
+
 
     def abort(self):
         pid = None

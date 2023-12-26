@@ -99,6 +99,13 @@ class BaselineNamespace(socketio.ClientNamespace):
                     message=f'Download time in seconds - ${less}'
                 )
             )
+            response = mureq.post(perfomance["download_host"]+'/receive-callback',
+                                  json={'token': perfomance["token"], 'epicrisisId': data["epicrisisId"]})
+            if response.status_code == 201:
+                logger.info(dict(op='file-received', status='success'))
+                print('File received success')
+            else:
+                raise Exception
         except Exception as e:
             logger.info(dict(op='file-income', status='error', error=str(e)))
 
