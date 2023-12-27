@@ -10,11 +10,14 @@ from validator import Validator, NotJsonContentInFileError, TooManyObjectsInTheA
 from validator import JsonIsEmpty, StructureJsonIsIncorrect
 from cfg_support import get_perfomance
 import socketio
-from log import logger
+import logging
+# from log import logger
 
 
 class BaselineCommands(object):
     def __init__(self):
+
+        self.logger = logging.getLogger('main_baseline_logger')
         self.main_input_queue = posixmq.Queue('/baseline')
         self.main_output_queue = posixmq.Queue('/inline')
 
@@ -155,13 +158,13 @@ class BaselineCommands(object):
             response = mureq.post(perfomance["download_host"]+'/upload-result',
                                   json={'token': perfomance["token"], 'taskId': taskid, 'answer': solution_from_file})
             if response.status_code == 201:
-                logger.info(dict(op='file-send', status='success'))
+                self.logger.info(dict(op='file-send', status='success'))
                 print('File send success')
             else:
                 raise Exception
 
         except Exception as e:
-            logger.info(dict(op='file-send', status='error'))
+            self.logger.info(dict(op='file-send', status='error'))
             print(e)
 
 
