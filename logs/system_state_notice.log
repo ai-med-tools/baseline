@@ -1,0 +1,63 @@
+2023-12-28 19:03:28,714 INFO     {'op': 'connect', 'status': 'success', 'message': 'Queue master process started successfully.'}
+2023-12-28 19:03:28,749 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-28 19:03:33,314 INFO     {'op': 'start', 'status': 'success', 'message': 'The session has successfully started, epicrises are expected.'}
+2023-12-28 19:03:33,315 INFO     1404
+2023-12-28 19:03:34,806 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Epicrisis sent from the platform - ID - 2404, Version - 1, TaskId - 34117'}
+2023-12-28 19:03:35,387 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Finish write file - ID - 2404, Version - 1, TaskId - 34117'}
+2023-12-28 19:03:35,388 INFO     {'op': 'file-download-time', 'status': 'success', 'message': 'Download time in seconds - 0.58183'}
+2023-12-28 19:03:35,455 INFO     {'op': 'file-received-callback', 'status': 'success'}
+2023-12-28 19:03:44,823 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Epicrisis sent from the platform - ID - 2407, Version - 1, TaskId - 34118'}
+2023-12-28 19:03:45,046 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Finish write file - ID - 2407, Version - 1, TaskId - 34118'}
+2023-12-28 19:03:45,047 INFO     {'op': 'file-download-time', 'status': 'success', 'message': 'Download time in seconds - 0.224332'}
+2023-12-28 19:03:45,098 INFO     {'op': 'file-received-callback', 'status': 'success'}
+2023-12-28 19:03:54,805 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Epicrisis sent from the platform - ID - 2437, Version - 1, TaskId - 34119'}
+2023-12-28 19:03:55,097 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Finish write file - ID - 2437, Version - 1, TaskId - 34119'}
+2023-12-28 19:03:55,098 INFO     {'op': 'file-download-time', 'status': 'success', 'message': 'Download time in seconds - 0.292686'}
+2023-12-28 19:03:55,146 INFO     {'op': 'file-received-callback', 'status': 'success'}
+2023-12-28 19:04:04,804 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Epicrisis sent from the platform - ID - 2462, Version - 1, TaskId - 34120'}
+2023-12-28 19:04:05,085 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Finish write file - ID - 2462, Version - 1, TaskId - 34120'}
+2023-12-28 19:04:05,085 INFO     {'op': 'file-download-time', 'status': 'success', 'message': 'Download time in seconds - 0.282093'}
+2023-12-28 19:04:05,134 INFO     {'op': 'file-received-callback', 'status': 'success'}
+2023-12-28 19:04:14,805 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Epicrisis sent from the platform - ID - 2475, Version - 1, TaskId - 34121'}
+2023-12-28 19:04:15,183 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Finish write file - ID - 2475, Version - 1, TaskId - 34121'}
+2023-12-28 19:04:15,184 INFO     {'op': 'file-download-time', 'status': 'success', 'message': 'Download time in seconds - 0.37842'}
+2023-12-28 19:04:15,234 INFO     {'op': 'file-received-callback', 'status': 'success'}
+2023-12-28 19:04:24,803 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Epicrisis sent from the platform - ID - 2480, Version - 1, TaskId - 34122'}
+2023-12-28 19:04:25,047 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Finish write file - ID - 2480, Version - 1, TaskId - 34122'}
+2023-12-28 19:04:25,048 INFO     {'op': 'file-download-time', 'status': 'success', 'message': 'Download time in seconds - 0.24464'}
+2023-12-28 19:04:25,096 INFO     {'op': 'file-received-callback', 'status': 'success'}
+2023-12-28 19:04:34,804 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Epicrisis sent from the platform - ID - 2484, Version - 1, TaskId - 34123'}
+2023-12-28 19:04:35,222 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Finish write file - ID - 2484, Version - 1, TaskId - 34123'}
+2023-12-28 19:04:35,223 INFO     {'op': 'file-download-time', 'status': 'success', 'message': 'Download time in seconds - 0.418918'}
+2023-12-28 19:04:35,271 INFO     {'op': 'file-received-callback', 'status': 'success'}
+2023-12-28 19:04:44,806 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Epicrisis sent from the platform - ID - 2488, Version - 1, TaskId - 34124'}
+2023-12-28 19:04:45,124 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Finish write file - ID - 2488, Version - 1, TaskId - 34124'}
+2023-12-28 19:04:45,125 INFO     {'op': 'file-download-time', 'status': 'success', 'message': 'Download time in seconds - 0.319115'}
+2023-12-28 19:04:45,183 INFO     {'op': 'file-received-callback', 'status': 'success'}
+2023-12-28 19:04:54,806 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Epicrisis sent from the platform - ID - 2489, Version - 1, TaskId - 34125'}
+2023-12-28 19:04:55,376 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Finish write file - ID - 2489, Version - 1, TaskId - 34125'}
+2023-12-28 19:04:55,376 INFO     {'op': 'file-download-time', 'status': 'success', 'message': 'Download time in seconds - 0.57036'}
+2023-12-28 19:04:55,430 INFO     {'op': 'file-received-callback', 'status': 'success'}
+2023-12-28 19:05:04,802 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Epicrisis sent from the platform - ID - 2491, Version - 1, TaskId - 34126'}
+2023-12-28 19:05:05,089 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Finish write file - ID - 2491, Version - 1, TaskId - 34126'}
+2023-12-28 19:05:05,089 INFO     {'op': 'file-download-time', 'status': 'success', 'message': 'Download time in seconds - 0.286628'}
+2023-12-28 19:05:05,137 INFO     {'op': 'file-received-callback', 'status': 'success'}
+2023-12-28 19:06:14,823 INFO     {'op': 'session-finished', 'status': 'success', 'message': 'Session - was successfully finished.'}
+2023-12-28 19:10:35,117 INFO     {'op': 'start', 'status': 'success', 'message': 'The session has successfully started, epicrises are expected.'}
+2023-12-28 19:10:35,118 INFO     1405
+2023-12-28 19:10:36,606 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Epicrisis sent from the platform - ID - 2396, Version - 1, TaskId - 34127'}
+2023-12-28 19:10:37,025 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Finish write file - ID - 2396, Version - 1, TaskId - 34127'}
+2023-12-28 19:10:37,026 INFO     {'op': 'file-download-time', 'status': 'success', 'message': 'Download time in seconds - 0.41958'}
+2023-12-28 19:10:37,072 INFO     {'op': 'file-received-callback', 'status': 'success'}
+2023-12-28 19:10:46,657 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Epicrisis sent from the platform - ID - 2410, Version - 1, TaskId - 34128'}
+2023-12-28 19:10:46,974 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Finish write file - ID - 2410, Version - 1, TaskId - 34128'}
+2023-12-28 19:10:46,974 INFO     {'op': 'file-download-time', 'status': 'success', 'message': 'Download time in seconds - 0.316893'}
+2023-12-28 19:10:47,023 INFO     {'op': 'file-received-callback', 'status': 'success'}
+2023-12-28 19:10:56,611 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Epicrisis sent from the platform - ID - 2425, Version - 1, TaskId - 34129'}
+2023-12-28 19:10:56,846 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Finish write file - ID - 2425, Version - 1, TaskId - 34129'}
+2023-12-28 19:10:56,847 INFO     {'op': 'file-download-time', 'status': 'success', 'message': 'Download time in seconds - 0.235565'}
+2023-12-28 19:10:56,893 INFO     {'op': 'file-received-callback', 'status': 'success'}
+2023-12-28 19:11:06,610 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Epicrisis sent from the platform - ID - 2430, Version - 1, TaskId - 34130'}
+2023-12-28 19:11:06,937 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Finish write file - ID - 2430, Version - 1, TaskId - 34130'}
+2023-12-28 19:11:06,937 INFO     {'op': 'file-download-time', 'status': 'success', 'message': 'Download time in seconds - 0.327826'}
+2023-12-28 19:11:06,979 INFO     {'op': 'file-received-callback', 'status': 'error', 'error': ''}

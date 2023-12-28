@@ -30,15 +30,6 @@ def native_baseline_queue():
             # logger.info("Try to start session.")
             sio.emit('session-start', msg["data"], "/baselinemrdtcgmegy")
 
-        if msg["op"] == "abort":
-            logger.info(
-                dict(
-                    op='session-abort',
-                    status='success',
-                    message=f'Session - try to be aborted.'
-                )
-            )
-            sio.emit("session-client-abort", "", "/baselinemrdtcgmegy")
         if msg["op"] == "start-blank":
             logger.info(
                 dict(

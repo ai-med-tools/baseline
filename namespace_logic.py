@@ -10,7 +10,7 @@ from cfg_support import set_current_epicrisis_id
 from cfg_support import set_current_epicrisis_path
 from cfg_support import get_current_input_path
 from cfg_support import get_current_test_path
-from log import logger
+from state_log import logger
 import datetime as dt
 
 
@@ -75,8 +75,6 @@ class BaselineNamespace(socketio.ClientNamespace):
                                                   f'{data["epicrisisId"]}_{data["versionId"]}_{data["taskId"]}.xml')
             set_current_epicrisis_path(current_epicrisis_path)
 
-            logger.info(dict(current_epicrisis_path=current_epicrisis_path))
-
             payload = {'baselineToken': perfomance["token"], 'epicrisisId': data["epicrisisId"]}
             response = mureq.get(perfomance["download_host"], params=payload)
 
@@ -103,32 +101,12 @@ class BaselineNamespace(socketio.ClientNamespace):
                                   json={'token': perfomance["token"], 'epicrisisId': data["epicrisisId"]})
             if response.status_code == 201:
                 logger.info(dict(op='file-received-callback', status='success'))
-                print('File received success')
             else:
                 raise Exception
         except Exception as e:
             logger.info(dict(op='file-received-callback', status='error', error=str(e)))
 
         pass
-
-    def on_session_file_send_success(self, data):
-        logger.info(
-            dict(
-                op='file-send-reaction',
-                status='success',
-                message=f'File successfully saved on the platform - EpicrisisId - ID '
-                        f'- {data["epicrisisId"]}, Version - {data["versionId"]}, TaskId - {data["taskId"]}'
-            )
-        )
-
-    def on_session_file_send_error(self, data):
-        logger.info(
-            dict(
-                op='file-send-reaction',
-                status='error',
-                message=f'File was not saved with an error - {data["message"]}'
-            )
-        )
 
     def on_session_reconnect_success(self, data):
         logger.info(
@@ -138,9 +116,6 @@ class BaselineNamespace(socketio.ClientNamespace):
                 message=f'Session - {data["sessionId"]} - was successfully reconnected.'
             )
         )
-        #
-        # qi = get_inline_queue()
-        # qi.put(reconnect_success_const)
 
 
     def on_session_close(self, data):
@@ -151,35 +126,6 @@ class BaselineNamespace(socketio.ClientNamespace):
                 message=f'Session - was successfully finished.'
             )
         )
-
-    def on_session_abort_success(self, data):
-        try:
-            logger.info(
-                dict(
-                    op='session-abort',
-                    status='success',
-                    message=f'Session - was successfully aborted.'
-                )
-            )
-            qi = get_inline_queue()
-            qi.put(abort_success_const)
-        except Exception as e:
-            logger.info(dict(op="Error when sen123123d file", error=str(e)))
-
-    def on_session_abort_error(self, data):
-        try:
-            logger.info(
-                dict(
-                    op='session-abort',
-                    status='error',
-                    message=f'Session - was not aborted.'
-                )
-            )
-            qi = get_inline_queue()
-            qi.put(abort_success_const)
-        except Exception as e:
-            logger.info(dict(op="Error when sen123123d file", error=str(e)))
-
 
     def on_session_blank_start(self):
         logger.info(

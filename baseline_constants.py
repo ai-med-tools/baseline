@@ -2,7 +2,8 @@ from cfg_support import get_message_value
 import os
 
 main_dir = os.path.dirname(os.path.abspath(__file__))
-system_logs_path = os.path.join(main_dir, "logs/system_state.log")
+system_logs_path = os.path.join(main_dir, "logs/system_state_notice.log")
+push_logs_path = os.path.join(main_dir, "logs/system_push_notice.log")
 session_files_path = os.path.join(main_dir, "files/sessions/")
 
 main_process_start_success_const = dict(op='connect', status='success', message=get_message_value("main_process_start_success"))
