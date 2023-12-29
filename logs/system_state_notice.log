@@ -61,3 +61,195 @@
 2023-12-28 19:11:06,937 INFO     {'op': 'file-income', 'status': 'success', 'message': 'Finish write file - ID - 2430, Version - 1, TaskId - 34130'}
 2023-12-28 19:11:06,937 INFO     {'op': 'file-download-time', 'status': 'success', 'message': 'Download time in seconds - 0.327826'}
 2023-12-28 19:11:06,979 INFO     {'op': 'file-received-callback', 'status': 'error', 'error': ''}
+2023-12-29 08:14:43,526 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 08:14:55,637 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 08:30:21,762 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 08:30:28,657 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 08:30:47,269 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 08:30:53,973 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 08:31:44,066 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 08:31:51,275 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 08:31:53,167 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 08:32:06,603 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 08:32:16,340 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 08:32:24,013 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 08:32:40,944 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 08:32:49,168 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 08:36:38,243 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 08:36:51,180 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 08:38:19,092 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 08:38:26,809 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 08:43:47,026 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 08:44:06,437 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 08:44:36,600 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 08:44:44,260 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 08:45:29,894 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 08:45:38,744 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 08:45:38,800 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 08:45:47,443 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 08:46:05,399 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 08:46:13,571 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 08:46:34,466 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 08:46:43,005 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 08:46:54,903 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 08:47:07,047 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 08:47:41,526 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 08:48:01,057 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 08:48:28,056 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 08:48:35,947 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 08:49:14,541 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 08:49:22,033 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 08:49:39,020 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 08:49:47,516 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 08:50:06,757 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 08:50:14,228 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 08:50:14,393 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 08:50:21,848 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 08:50:59,561 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 08:51:07,193 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 08:55:11,192 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 08:55:18,788 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 08:55:21,647 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 08:55:29,824 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 08:55:34,778 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 08:55:41,898 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 08:56:55,514 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 08:57:08,186 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:06:49,071 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:06:56,226 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:07:00,587 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:07:07,349 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:08:24,134 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:08:31,936 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:09:48,945 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:10:07,761 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:11:57,357 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:12:09,509 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:12:11,647 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:12:19,039 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:13:06,843 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:13:20,423 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:14:22,362 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:14:29,338 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:14:34,010 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:14:42,577 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:14:44,250 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:14:50,710 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:15:00,187 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:15:07,743 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:15:27,818 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:15:35,070 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:15:42,829 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:16:01,329 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:16:05,870 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:16:18,346 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:17:52,290 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:18:00,129 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:25:57,381 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:26:04,166 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:26:23,260 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:26:31,172 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:30:26,771 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:30:38,842 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:33:34,170 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:33:46,138 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:37:12,414 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:37:19,680 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:39:06,917 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:39:13,767 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:42:33,792 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:42:40,629 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:44:15,350 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:44:23,096 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:44:41,990 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:44:49,028 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:45:00,936 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:45:07,950 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:45:49,768 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:45:56,777 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:50:06,960 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:50:14,057 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:50:49,479 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:50:56,931 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:51:10,266 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:51:18,478 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:51:26,774 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:51:33,933 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:51:46,060 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:51:52,549 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:51:52,923 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:52:00,786 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 09:57:59,369 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 09:58:05,575 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:00:43,507 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:00:50,427 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:01:29,229 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:01:36,178 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:01:52,392 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:02:00,281 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:02:08,036 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:02:19,545 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:02:27,402 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:02:34,948 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:04:18,860 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:04:25,865 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:05:37,191 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:05:44,485 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:07:12,238 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:07:19,509 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:08:30,490 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:08:37,523 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:11:27,995 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:11:35,699 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:12:20,235 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:12:27,763 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:12:31,102 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:12:49,646 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:12:52,765 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:13:10,232 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:13:16,974 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:13:34,393 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:15:13,701 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:15:22,743 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:24:13,044 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:24:21,023 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:26:46,431 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:26:53,669 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:27:47,401 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:28:00,636 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:28:43,314 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:28:56,189 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:29:01,551 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:29:09,029 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:29:21,773 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:29:29,473 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:30:41,690 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:30:49,410 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:32:48,886 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:32:57,342 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:34:22,505 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:34:30,568 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:34:41,935 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:34:49,154 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:41:28,801 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:41:36,620 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:41:43,715 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:41:50,064 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:41:50,116 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:41:58,196 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:42:11,313 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:42:18,330 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 10:42:33,610 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 10:42:46,735 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 11:30:30,168 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 11:30:48,523 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 11:31:21,115 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 11:31:28,132 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 11:32:25,045 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 11:32:33,577 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 11:32:45,541 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 11:32:52,959 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 11:32:53,528 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 11:33:00,650 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
+2023-12-29 11:33:09,548 INFO     {'op': 'disconnect', 'status': 'success', 'message': 'The connection to the platform has been lost.'}
+2023-12-29 11:33:17,560 INFO     {'op': 'connect', 'status': 'success', 'message': 'The connection to the platform has been successfully established.'}
