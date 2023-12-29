@@ -10,14 +10,11 @@ import logging
 
 sio = socketio.Client({
     'reconnection': True,
-    'reconnection_attempts': 3000,
-    'reconnection_delay': 1,  # how long to initially wait before attempting a new reconnection
-    'reconnection_delay_max': 3000,
-    'randomization_factor': 0.5,
+    'upgrade': False,
     'ssl_verify': False,
 })
 
-sio.register_namespace(BaselineNamespace('/baseline'))
+sio.register_namespace(BaselineNamespace('/baselinemrdtcgmegy'))
 
 main_dir = os.path.dirname(os.path.abspath(__file__))
 def native_baseline_queue():
@@ -29,34 +26,10 @@ def native_baseline_queue():
 
     while True:
         msg = q.get()
-        if msg["op"] == "send":
-            check_file = os.path.join(main_dir, msg["data"]["path"])
-            try:
-                logger.info(dict(op="Try to send file.", epicrisisId=msg["data"]["taskId"]))
-                with open(check_file, 'r') as f:
-                    solution_raw_content = f.read()
-
-                solution_from_file = json.loads(solution_raw_content)
-                msg["data"]["answer"] = solution_from_file
-
-                sio.emit('session-send-file-result', msg["data"], "/baseline")
-
-            except Exception as e:
-                logger.info(dict(op="Error when send file", error=str(e)))
-
         if msg["op"] == "start":
             # logger.info("Try to start session.")
-            sio.emit('session-start', msg["data"], "/baseline")
+            sio.emit('session-start', msg["data"], "/baselinemrdtcgmegy")
 
-        if msg["op"] == "abort":
-            logger.info(
-                dict(
-                    op='session-abort',
-                    status='success',
-                    message=f'Session - try to be aborted.'
-                )
-            )
-            sio.emit("session-client-abort", "", "/baseline")
         if msg["op"] == "start-blank":
             logger.info(
                 dict(
@@ -75,7 +48,7 @@ def native_baseline_queue():
             try:
                 logger.info(dict(op="Attempt to request research", epicrisisId=msg["data"]["epicrisisId"],
                                  sessionId=msg["data"]["sessionId"], testId=msg["data"]["testId"]))
-                sio.emit("session-get-test", msg["data"], "/baseline")
+                sio.emit("session-get-test", msg["data"], "/baselinemrdtcgmegy")
 
             except Exception as e:
                 logger.info(dict(op="Error when send file", error=str(e)))
@@ -95,4 +68,4 @@ if __name__ == "__main__":
         thread.daemon = True
         thread.start()
 
-        sio.connect(f'{perfomance["aimed_host"]}?token={perfomance["token"]}', namespaces=['/baseline'], transports=['websocket'])
+        sio.connect(f'{perfomance["aimed_host"]}?token={perfomance["token"]}', namespaces=['/baselinemrdtcgmegy'], transports=['websocket'])

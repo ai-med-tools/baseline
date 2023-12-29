@@ -1,4 +1,5 @@
-import fire, os, json, time, psutil
+import fire, os, json, psutil
+import mureq
 from ipcqueue import posixmq
 from baseline_constants import session_start_success_const, solution_file_doesnt_exist_const
 from baseline_constants import data_not_resolved_const
@@ -9,7 +10,8 @@ from validator import Validator, NotJsonContentInFileError, TooManyObjectsInTheA
 from validator import JsonIsEmpty, StructureJsonIsIncorrect
 from cfg_support import get_perfomance
 import socketio
-from datetime import datetime
+import datetime as dt
+from push_log import logger
 
 
 class BaselineCommands(object):
@@ -32,7 +34,8 @@ class BaselineCommands(object):
             # standard Python
             ping = 'ping'
             sio = socketio.Client()
-            sio.connect(f'{perfomance["aimed_host"]}?token={perfomance["token"]}&ping={ping}', namespaces=['/baseline'],
+            sio.connect(f'{perfomance["aimed_host"]}?token={perfomance["token"]}&ping={ping}',
+                        namespaces=['/baselinemrdtcgmegy'],
                         transports=['websocket'], wait=True, wait_timeout=3)
             sio.disconnect()
         except Exception as e:
@@ -125,6 +128,7 @@ class BaselineCommands(object):
 
         if not currentsessionid or not currentepicrisisid or not currenttasksid:
             print(data_not_resolved_const)
+            return
 
         try:
             validator = Validator(path)
@@ -142,15 +146,33 @@ class BaselineCommands(object):
             print(sjii)
             return
 
-        self.main_input_queue.put(
-            dict(
-                op="send",
-                data={
-                    "taskId": int(taskid),
-                    "path": path,
-                }
-            ), priority=1
-        )
+        try:
+            a = dt.datetime.now()
+            perfomance = get_perfomance()
+            main_dir = os.path.dirname(os.path.abspath(__file__))
+            check_file = os.path.join(main_dir, path)
+            with open(check_file, 'r') as f:
+                solution_raw_content = f.read()
+
+            solution_from_file = json.loads(solution_raw_content)
+            response = mureq.post(perfomance["download_host"] + '/upload-result',
+                                  json={'token': perfomance["token"], 'taskId': taskid, 'answer': solution_from_file})
+            b = dt.datetime.now()
+            less = (b-a).total_seconds()
+            if response.status_code == 201:
+                logger.info(dict(op='file-send', status='success',
+                            message=dict(session=currentsessionid, task=taskid, time=less)))
+                print(f'File {currentepicrisisid} - successfuly sent. Upload time -  {less}')
+                return
+            else:
+                raise Exception
+
+        except Exception as e:
+            logger.info(dict(op='file-send', status='error',
+                        message=dict(session=currentsessionid, task=taskid)))
+            print('File do not sent. Error.')
+            print(e)
+            return
 
     def abort(self):
         pid = None
@@ -161,17 +183,22 @@ class BaselineCommands(object):
             print(f'Baseline CORE was not started, the command cannot be executed')
             return
 
-        self.main_input_queue.put(
-            dict(
-                op="abort",
-                data={}
-            ), priority=1
-        )
-        print("abort send")
-        answer = self.main_output_queue.get(True, 5)
-
-        print(answer)
-        pass
+        try:
+            perfomance = get_perfomance()
+            response = mureq.post(perfomance["download_host"] + '/abort', json={'token': perfomance["token"]})
+            if response.status_code == 201:
+                logger.info(dict(op='session-abort', status='success',
+                            message='Termination of session completed successfully'))
+                print('Session abort success.')
+                return
+            else:
+                raise Exception
+        except Exception as e:
+            logger.info(dict(op='session-abort', status='error',
+                        message='Session - was not aborted.'))
+            print('Session - was not aborted.')
+            print(e)
+            return
 
     def check(self):
         pid = None
