@@ -161,7 +161,7 @@ class BaselineCommands(object):
             less = (b-a).total_seconds()
             if response.status_code == 201:
                 logger.info(dict(op='file-send', status='success',
-                            message=dict(session=currentsessionid, epicrisis=currentepicrisisid, task=currenttasksid, time=less)))
+                            message=dict(session=currentsessionid, task=taskid, time=less)))
                 print(f'File {currentepicrisisid} - successfuly sent. Upload time -  {less}')
                 return
             else:
@@ -169,7 +169,7 @@ class BaselineCommands(object):
 
         except Exception as e:
             logger.info(dict(op='file-send', status='error',
-                        message=dict(session=currentsessionid, epicrisis=currentepicrisisid, task=currenttasksid)))
+                        message=dict(session=currentsessionid, task=taskid)))
             print('File do not sent. Error.')
             print(e)
             return
