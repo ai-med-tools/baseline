@@ -62,7 +62,7 @@ class BaselineCommands(object):
         except:
             print("An exception occurred.")
 
-    def start(self, contest, stage, type, count=None, timeout=None):
+    def start(self, contest, stage, type, count=None, timeout=None, nosology=None):
         pid = None
         for proc in psutil.process_iter(['pid', 'name', 'username']):
             if proc.cmdline() == ['python', 'core.py']:
@@ -71,12 +71,23 @@ class BaselineCommands(object):
             print(f'Baseline CORE was not started, the command cannot be executed')
             return
 
-        print(contest, stage, type, count, timeout)
+        print(contest, stage, type, count, timeout, nosology)
         if type not in ["training", "estimated-training"]:
             print(type)
             if count or timeout:
                 print(f'Parameter setting is allowed only in the training session.')
                 return
+
+        if type in [ "estimated-training"]:
+            if count:
+                print(f'Parameter count cannot be specified in this session type.')
+                return
+
+        nosology_string = ''
+        if isinstance(nosology, int):
+            nosology_string = str(nosology)
+        else:
+            nosology_string = ','.join(map(str,nosology))
 
         initial_params = dict(
             op='start',
@@ -93,6 +104,9 @@ class BaselineCommands(object):
 
         if timeout:
             initial_params["data"]["params"]["time"] = timeout
+
+        if nosology_string != "":
+            initial_params["data"]["params"]["nosologyString"] = nosology_string
 
         self.main_input_queue.put(
             initial_params,
