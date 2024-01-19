@@ -82,12 +82,12 @@ class BaselineCommands(object):
             if count:
                 print(f'Parameter count cannot be specified in this session type.')
                 return
-
         nosology_string = ''
-        if isinstance(nosology, int):
-            nosology_string = str(nosology)
-        else:
-            nosology_string = ','.join(map(str,nosology))
+        if nosology:
+            if isinstance(nosology, int):
+                nosology_string = str(nosology)
+            else:
+                nosology_string = ','.join(map(str,nosology))
 
         initial_params = dict(
             op='start',
