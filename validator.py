@@ -2,7 +2,6 @@ import json
 
 
 class Validator:
-
     solution_from_file: dict
 
     def __init__(self, path):
@@ -13,6 +12,7 @@ class Validator:
         self.validate_json_is_empty()
         self.validate_count_objects()
         self.validate_json_structure()
+        self.validate_limit_keys()
         pass
 
     def validate_json_is_it(self):
@@ -35,11 +35,29 @@ class Validator:
         pass
 
     def validate_json_structure(self):
+        av_keys = ['decorCode', 'code']
         for val in self.solution_from_file:
-            status = "start" in val and "end" in val and "decorCode" in val and "code" in val and "name" in val \
-                     and "xPath" in val
-            if not status:
+            if val not in av_keys:
                 raise StructureJsonIsIncorrect()
+            # status = "start" in val and "end" in val and "decorCode" in val and "code" in val and "name" in val \
+            #          and "xPath" in val
+            # if not status:
+            #     raise StructureJsonIsIncorrect()
+
+        pass
+
+    def validate_limit_keys(self):
+        count_desease = 0
+        count_sup = 0
+        for val in self.solution_from_file:
+            if "decorCode" in val:
+                if val['decorCode'] == 'attendDisease':
+                    count_desease += 1
+                if val['decorCode'] == 'diagnosisSup':
+                    count_sup += 1
+
+        if count_sup >= 10 or count_desease >= 10:
+            raise LimitKeysInJson()
         pass
 
 
@@ -51,6 +69,11 @@ class JsonIsEmpty(Exception):
 class StructureJsonIsIncorrect(Exception):
     def __str__(self):
         return f'The structure of the JSON sent in the response does not match the TR.'
+
+
+class LimitKeysInJson(Exception):
+    def __str__(self):
+        return f'The number of decorCode key in the attendDisease and diagnosisSup values has been exceeded'
 
 
 class NotJsonContentInFileError(Exception):

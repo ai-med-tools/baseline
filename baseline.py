@@ -7,7 +7,7 @@ from cfg_support import get_current_session_id
 from cfg_support import get_current_epicrisis_id
 from cfg_support import get_current_task_id
 from validator import Validator, NotJsonContentInFileError, TooManyObjectsInTheArrayError
-from validator import JsonIsEmpty, StructureJsonIsIncorrect
+from validator import JsonIsEmpty, StructureJsonIsIncorrect, LimitKeysInJson
 from cfg_support import get_perfomance
 import socketio
 import datetime as dt
@@ -159,6 +159,8 @@ class BaselineCommands(object):
         except StructureJsonIsIncorrect as sjii:
             print(sjii)
             return
+        except LimitKeysInJson as lkij:
+            print(lkij)
 
         try:
             a = dt.datetime.now()
