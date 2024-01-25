@@ -37,8 +37,10 @@ class Validator:
     def validate_json_structure(self):
         av_keys = ['decorCode', 'code']
         for val in self.solution_from_file:
-            if val not in av_keys:
-                raise StructureJsonIsIncorrect()
+            list = val.keys()
+            for key in list:
+                if key not in av_keys:
+                    raise StructureJsonIsIncorrect()
             # status = "start" in val and "end" in val and "decorCode" in val and "code" in val and "name" in val \
             #          and "xPath" in val
             # if not status:
