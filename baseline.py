@@ -161,6 +161,7 @@ class BaselineCommands(object):
             return
         except LimitKeysInJson as lkij:
             print(lkij)
+            return 
 
         try:
             a = dt.datetime.now()
