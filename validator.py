@@ -58,7 +58,7 @@ class Validator:
                 if val['decorCode'] == 'diagnosisSup':
                     count_sup += 1
 
-        if count_sup >= 10 or count_desease >= 10:
+        if count_sup > 10 or count_desease > 10:
             raise LimitKeysInJson()
         pass
 
