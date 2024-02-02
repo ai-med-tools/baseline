@@ -78,6 +78,11 @@ class BaselineCommands(object):
                 print(f'Parameter setting is allowed only in the training session.')
                 return
 
+        if contest in ["doctor"]:
+            if type in ["training"]:
+                if not count:
+                    count = 100
+
         if type in [ "estimated-training"]:
             if count:
                 print(f'Parameter count cannot be specified in this session type.')

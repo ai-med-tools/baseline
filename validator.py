@@ -51,14 +51,17 @@ class Validator:
     def validate_limit_keys(self):
         count_desease = 0
         count_sup = 0
+        count_main = 0
         for val in self.solution_from_file:
             if "decorCode" in val:
                 if val['decorCode'] == 'attendDisease':
                     count_desease += 1
                 if val['decorCode'] == 'diagnosisSup':
                     count_sup += 1
+                if val['decorCode'] == 'diagnosisMain':
+                    count_main += 1
 
-        if count_sup > 10 or count_desease > 10:
+        if count_sup > 10 or count_desease > 10 or count_main > 1:
             raise LimitKeysInJson()
         pass
 
@@ -75,7 +78,7 @@ class StructureJsonIsIncorrect(Exception):
 
 class LimitKeysInJson(Exception):
     def __str__(self):
-        return f'The number of decorCode key in the attendDisease and diagnosisSup values has been exceeded'
+        return f'The number of decorCode key in the attendDisease or diagnosisSup or diagnosisMain values has been exceeded'
 
 
 class NotJsonContentInFileError(Exception):
