@@ -13,6 +13,7 @@ class Validator:
         self.validate_count_objects()
         self.validate_json_structure()
         self.validate_limit_keys()
+        self.validate_diagnosis_length()
         pass
 
     def validate_json_is_it(self):
@@ -65,6 +66,15 @@ class Validator:
             raise LimitKeysInJson()
         pass
 
+    def validate_diagnosis_length(self):
+        diagnosis_length = 10
+        for val in self.solution_from_file:
+            if "decorCode" in val:
+                if val['decorCode'] == 'diagnosisMain':
+                    if len(val['code']) > diagnosis_length:
+                        raise DiagnosisMainLength()
+        pass
+
 
 class JsonIsEmpty(Exception):
     def __str__(self):
@@ -80,6 +90,9 @@ class LimitKeysInJson(Exception):
     def __str__(self):
         return f'The number of decorCode key in the attendDisease or diagnosisSup or diagnosisMain values has been exceeded'
 
+class DiagnosisMainLength(Exception):
+    def __str__(self):
+        return f'The length of the main diagnosis line exceeded 10 characters'
 
 class NotJsonContentInFileError(Exception):
     def __str__(self):

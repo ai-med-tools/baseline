@@ -7,7 +7,7 @@ from cfg_support import get_current_session_id
 from cfg_support import get_current_epicrisis_id
 from cfg_support import get_current_task_id
 from validator import Validator, NotJsonContentInFileError, TooManyObjectsInTheArrayError
-from validator import JsonIsEmpty, StructureJsonIsIncorrect, LimitKeysInJson
+from validator import JsonIsEmpty, StructureJsonIsIncorrect, LimitKeysInJson, DiagnosisMainLength
 from cfg_support import get_perfomance
 import socketio
 import datetime as dt
@@ -166,7 +166,10 @@ class BaselineCommands(object):
             return
         except LimitKeysInJson as lkij:
             print(lkij)
-            return 
+            return
+        except DiagnosisMainLength as dml:
+            print(dml)
+            return
 
         try:
             a = dt.datetime.now()
