@@ -24,7 +24,7 @@ class BaselineCommands(object):
 
         pid = None
         for proc in psutil.process_iter(['pid', 'name', 'username']):
-            if proc.cmdline() == ['python', 'core.py']:
+            if proc.cmdline()[-2:] == ['python', 'core.py']:
                 pid = proc.pid
         if pid:
             print("Baseline process is already started. PID - " + str(pid))
@@ -56,7 +56,7 @@ class BaselineCommands(object):
         try:
             pid = None
             for proc in psutil.process_iter(['pid', 'name', 'username']):
-                if proc.cmdline() == ['python', 'core.py']:
+                if proc.cmdline()[-2:] == ['python', 'core.py']:
                     proc.kill()
             print("Core successfully killed.")
         except:
@@ -65,7 +65,7 @@ class BaselineCommands(object):
     def start(self, contest, stage, type, count=None, timeout=None):
         pid = None
         for proc in psutil.process_iter(['pid', 'name', 'username']):
-            if proc.cmdline() == ['python', 'core.py']:
+            if proc.cmdline()[-2:] == ['python', 'core.py']:
                 pid = proc.pid
         if not pid:
             print(f'Baseline CORE was not started, the command cannot be executed')
@@ -107,7 +107,7 @@ class BaselineCommands(object):
     def send(self, path, taskid):
         pid = None
         for proc in psutil.process_iter(['pid', 'name', 'username']):
-            if proc.cmdline() == ['python', 'core.py']:
+            if proc.cmdline()[-2:] == ['python', 'core.py']:
                 pid = proc.pid
         if not pid:
             print(f'Baseline CORE was not started, the command cannot be executed')
@@ -177,7 +177,7 @@ class BaselineCommands(object):
     def abort(self):
         pid = None
         for proc in psutil.process_iter(['pid', 'name', 'username']):
-            if proc.cmdline() == ['python', 'core.py']:
+            if proc.cmdline()[-2:] == ['python', 'core.py']:
                 pid = proc.pid
         if not pid:
             print(f'Baseline CORE was not started, the command cannot be executed')
@@ -203,7 +203,7 @@ class BaselineCommands(object):
     def check(self):
         pid = None
         for proc in psutil.process_iter(['pid', 'name', 'username']):
-            if proc.cmdline() == ['python', 'core.py']:
+            if proc.cmdline()[-2:] == ['python', 'core.py']:
                 pid = proc.pid
         if pid:
             print("Baseline process is now started. PID - " + str(pid))
@@ -240,7 +240,7 @@ class BaselineCommands(object):
     def test(self, test_id: int, description: str):
         pid = None
         for proc in psutil.process_iter(['pid', 'name', 'username']):
-            if proc.cmdline() == ['python', 'core.py']:
+            if proc.cmdline()[-2:] == ['python', 'core.py']:
                 pid = proc.pid
         if not pid:
             print(f'Baseline CORE was not started, the command cannot be executed')
