@@ -124,6 +124,9 @@ class BaselineCommands(object):
         pass
 
     def send(self, path, taskid):
+        '''ОТПРАВКА РЕЗУЛЬТАТА НА ПЛАТФОРМУ. Пример для Docker - LINUX - "./baseline send --path=<path_to_solution_json> --taskid=<ID_задачи>" -
+        WINDOWS - docker-compose exec -iT baseline sh -c "python baseline.py send --path=<path_to_solution_json> --taskid=<ID_задачи>".
+        Подробнее об этом в файлах docs/commands-native.md и docs/commands-windows.md'''
         pid = None
         for proc in psutil.process_iter(['pid', 'name', 'username']):
             if proc.cmdline() == ['python', 'core.py']:
@@ -200,6 +203,9 @@ class BaselineCommands(object):
             return
 
     def abort(self):
+        '''ПРЕРЫВАНИЕ СЕССИИ. Пример для Docker - LINUX - "./baseline abort" -
+        WINDOWS - docker-compose exec -iT baseline sh -c "python baseline.py abort".
+        Подробнее об этом в файлах docs/commands-native.md и docs/commands-windows.md'''
         pid = None
         for proc in psutil.process_iter(['pid', 'name', 'username']):
             if proc.cmdline() == ['python', 'core.py']:
@@ -226,6 +232,9 @@ class BaselineCommands(object):
             return
 
     def check(self):
+        '''ПРЕРЫВАНИЕ СОСТОЯНИЯ УТИЛИТЫ. Пример для Docker - LINUX - "./baseline check" -
+        WINDOWS - docker-compose exec -iT baseline sh -c "python baseline.py check".
+        Подробнее об этом в файлах docs/commands-native.md и docs/commands-windows.md'''
         pid = None
         for proc in psutil.process_iter(['pid', 'name', 'username']):
             if proc.cmdline() == ['python', 'core.py']:
@@ -239,6 +248,9 @@ class BaselineCommands(object):
                   " - enter the command `python baseline.py core`")
 
     def flush(self):
+        '''ОЧИСТКА ВНУТРЕННЕЙ ОЧЕРЕДИ КОМАНД. Пример для Docker - LINUX - "./baseline flush" -
+        WINDOWS - docker-compose exec -iT baseline sh -c "python baseline.py flush".
+        Подробнее об этом в файлах docs/commands-native.md и docs/commands-windows.md'''
         input_queue_size = self.main_input_queue.qsize()
         if input_queue_size > 0:
             print("Current INPUT queue state - " + str(self.main_input_queue.qsize()) + ". Delete pending tasks")
