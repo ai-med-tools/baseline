@@ -110,14 +110,22 @@ class BaselineCommands(object):
                 }
             }
         )
+
+        print(f'Parameter - contest - {contest}')
+        print(f'Parameter - stage - {stage}')
+        print(f'Parameter - type - {type}')
+
         if count:
             initial_params["data"]["params"]["countFiles"] = count
+            print(f'Parameter - count - {count}')
 
         if timeout:
             initial_params["data"]["params"]["time"] = timeout
+            print(f'Parameter - timeout - {timeout}')
 
         if nosology_string != "":
             initial_params["data"]["params"]["nosologyString"] = nosology_string
+            print(f'Parameter - nosology string - {nosology_string}')
 
         self.main_input_queue.put(
             initial_params,
@@ -196,7 +204,7 @@ class BaselineCommands(object):
             if response.status_code == 201:
                 logger.info(dict(op='file-send', status='success',
                             message=dict(session=currentsessionid, task=taskid, time=less)))
-                print(f'File {currentepicrisisid} - successfuly sent. Upload time -  {less}')
+                print(f'File task ID - {taskid} - successfuly sent. Upload time -  {less}')
                 return
             else:
                 raise Exception
