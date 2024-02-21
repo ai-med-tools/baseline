@@ -20,7 +20,7 @@ main_dir = os.path.dirname(os.path.abspath(__file__))
 def native_baseline_queue():
     q = posixmq.Queue('/baseline')
     qi = posixmq.Queue('/inline')
-    logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s', level=logging.INFO, filename=system_logs_path, filemode="w")
+    logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s', level=logging.INFO, filename=system_logs_path, filemode="a")
     logger = logging.getLogger('main_baseline_logger')
     logger.info(main_process_start_success_const)
 

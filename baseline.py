@@ -53,6 +53,9 @@ class BaselineCommands(object):
             print(f'An error occurred while starting the core.')
 
     def kill(self):
+        '''ЗАВЕРШЕНИЕ ГЛАВНОГО ПРОЦЕССА. ЭКВИВАЛЕНТНО "docker compose down". Пример для Docker - LINUX - "./baseline kill" -
+        WINDOWS - docker-compose exec -iT baseline sh -c "python baseline.py kill".
+        Подробнее об этом в файлах docs/commands-native.md и docs/commands-windows.md'''
         try:
             pid = None
             for proc in psutil.process_iter(['pid', 'name', 'username']):
@@ -63,6 +66,9 @@ class BaselineCommands(object):
             print("An exception occurred.")
 
     def start(self, contest, stage, type, count=None, timeout=None, nosology=None):
+        '''СТАРТ СЕССИИ. Пример для Docker - LINUX - "./baseline start --contest=<contest> --stage=<stage> --type=<type> --count=<int> --timeout=<int>" -
+        WINDOWS - docker-compose exec -iT baseline sh -c "python baseline.py start --contest=<contest> --stage=<stage> --type=<type> --count=<int> --timeout=<int>".
+        Подробнее об этом в файлах docs/commands-native.md и docs/commands-windows.md'''
         pid = None
         for proc in psutil.process_iter(['pid', 'name', 'username']):
             if proc.cmdline() == ['python', 'core.py']:
