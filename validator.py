@@ -14,6 +14,7 @@ class Validator:
         self.validate_json_structure()
         self.validate_limit_keys()
         self.validate_diagnosis_length()
+        self.validate_diagnosis_exists()
         pass
 
     def validate_json_is_it(self):
@@ -66,6 +67,17 @@ class Validator:
             raise LimitKeysInJson()
         pass
 
+    def validate_diagnosis_exists(self):
+        count_main = 0
+        for val in self.solution_from_file:
+            if "decorCode" in val:
+                if val['decorCode'] == 'diagnosisMain':
+                    count_main += 1
+
+        if count_main == 0:
+            raise ThereIsNoMainDiagnosis()
+        pass
+
     def validate_diagnosis_length(self):
         diagnosis_length = 10
         for val in self.solution_from_file:
@@ -97,6 +109,10 @@ class DiagnosisMainLength(Exception):
 class NotJsonContentInFileError(Exception):
     def __str__(self):
         return f'The file at the specified path does not contain json.'
+
+class ThereIsNoMainDiagnosis(Exception):
+    def __str__(self):
+        return f'The main diagnosis does not exist in the sent markup.'
 
 
 class TooManyObjectsInTheArrayError(Exception):

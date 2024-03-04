@@ -8,6 +8,7 @@ from cfg_support import get_current_epicrisis_id
 from cfg_support import get_current_task_id
 from validator import Validator, NotJsonContentInFileError, TooManyObjectsInTheArrayError
 from validator import JsonIsEmpty, StructureJsonIsIncorrect, LimitKeysInJson, DiagnosisMainLength
+from validator import ThereIsNoMainDiagnosis
 from cfg_support import get_perfomance
 import socketio
 import datetime as dt
@@ -186,6 +187,9 @@ class BaselineCommands(object):
             return
         except DiagnosisMainLength as dml:
             print(dml)
+            return
+        except ThereIsNoMainDiagnosis as tinmd:
+            print(tinmd)
             return
 
         try:
