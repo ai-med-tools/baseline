@@ -7,7 +7,8 @@ from cfg_support import get_current_session_id
 from cfg_support import get_current_epicrisis_id
 from cfg_support import get_current_task_id
 from validator import Validator, NotJsonContentInFileError, TooManyObjectsInTheArrayError
-from validator import JsonIsEmpty, StructureJsonIsIncorrect
+from validator import JsonIsEmpty, StructureJsonIsIncorrect, LimitKeysInJson, DiagnosisMainLength
+from validator import ThereIsNoMainDiagnosis
 from cfg_support import get_perfomance
 import socketio
 import datetime as dt
@@ -35,7 +36,7 @@ class BaselineCommands(object):
             ping = 'ping'
             sio = socketio.Client()
             sio.connect(f'{perfomance["aimed_host"]}?token={perfomance["token"]}&ping={ping}',
-                        namespaces=['/baselinemrdtcgmegy'],
+                        namespaces=['/baselinejj4vVgitXNkY'],
                         transports=['websocket'], wait=True, wait_timeout=3)
             sio.disconnect()
         except Exception as e:
@@ -53,6 +54,9 @@ class BaselineCommands(object):
             print(f'An error occurred while starting the core.')
 
     def kill(self):
+        '''ЗАВЕРШЕНИЕ ГЛАВНОГО ПРОЦЕССА. ЭКВИВАЛЕНТНО "docker compose down". Пример для Docker - LINUX - "./baseline kill" -
+        WINDOWS - docker-compose exec -iT baseline sh -c "python baseline.py kill".
+        Подробнее об этом в файлах docs/commands-native.md и docs/commands-windows.md'''
         try:
             pid = None
             for proc in psutil.process_iter(['pid', 'name', 'username']):
@@ -62,7 +66,10 @@ class BaselineCommands(object):
         except:
             print("An exception occurred.")
 
-    def start(self, contest, stage, type, count=None, timeout=None):
+    def start(self, contest, stage, type, count=None, timeout=None, nosology=None):
+        '''СТАРТ СЕССИИ. Пример для Docker - LINUX - "./baseline start --contest=<contest> --stage=<stage> --type=<type> --count=<int> --timeout=<int>" -
+        WINDOWS - docker-compose exec -iT baseline sh -c "python baseline.py start --contest=<contest> --stage=<stage> --type=<type> --count=<int> --timeout=<int>".
+        Подробнее об этом в файлах docs/commands-native.md и docs/commands-windows.md'''
         pid = None
         for proc in psutil.process_iter(['pid', 'name', 'username']):
             if proc.cmdline()[-2:] == ['python', 'core.py']:
@@ -71,12 +78,28 @@ class BaselineCommands(object):
             print(f'Baseline CORE was not started, the command cannot be executed')
             return
 
-        print(contest, stage, type, count, timeout)
+        print(contest, stage, type, count, timeout, nosology)
         if type not in ["training", "estimated-training"]:
             print(type)
             if count or timeout:
                 print(f'Parameter setting is allowed only in the training session.')
                 return
+
+        if contest in ["doctor"]:
+            if type in ["training"]:
+                if not count:
+                    count = 100
+
+        if type in [ "estimated-training"]:
+            if count:
+                print(f'Parameter count cannot be specified in this session type.')
+                return
+        nosology_string = ''
+        if nosology:
+            if isinstance(nosology, int):
+                nosology_string = str(nosology)
+            else:
+                nosology_string = ','.join(map(str,nosology))
 
         initial_params = dict(
             op='start',
@@ -88,11 +111,22 @@ class BaselineCommands(object):
                 }
             }
         )
+
+        print(f'Parameter - contest - {contest}')
+        print(f'Parameter - stage - {stage}')
+        print(f'Parameter - type - {type}')
+
         if count:
             initial_params["data"]["params"]["countFiles"] = count
+            print(f'Parameter - count - {count}')
 
         if timeout:
             initial_params["data"]["params"]["time"] = timeout
+            print(f'Parameter - timeout - {timeout}')
+
+        if nosology_string != "":
+            initial_params["data"]["params"]["nosologyString"] = nosology_string
+            print(f'Parameter - nosology string - {nosology_string}')
 
         self.main_input_queue.put(
             initial_params,
@@ -105,6 +139,9 @@ class BaselineCommands(object):
         pass
 
     def send(self, path, taskid):
+        '''ОТПРАВКА РЕЗУЛЬТАТА НА ПЛАТФОРМУ. Пример для Docker - LINUX - "./baseline send --path=<path_to_solution_json> --taskid=<ID_задачи>" -
+        WINDOWS - docker-compose exec -iT baseline sh -c "python baseline.py send --path=<path_to_solution_json> --taskid=<ID_задачи>".
+        Подробнее об этом в файлах docs/commands-native.md и docs/commands-windows.md'''
         pid = None
         for proc in psutil.process_iter(['pid', 'name', 'username']):
             if proc.cmdline()[-2:] == ['python', 'core.py']:
@@ -145,6 +182,15 @@ class BaselineCommands(object):
         except StructureJsonIsIncorrect as sjii:
             print(sjii)
             return
+        except LimitKeysInJson as lkij:
+            print(lkij)
+            return
+        except DiagnosisMainLength as dml:
+            print(dml)
+            return
+        except ThereIsNoMainDiagnosis as tinmd:
+            print(tinmd)
+            return
 
         try:
             a = dt.datetime.now()
@@ -162,7 +208,7 @@ class BaselineCommands(object):
             if response.status_code == 201:
                 logger.info(dict(op='file-send', status='success',
                             message=dict(session=currentsessionid, task=taskid, time=less)))
-                print(f'File {currentepicrisisid} - successfuly sent. Upload time -  {less}')
+                print(f'File task ID - {taskid} - successfuly sent. Upload time -  {less}')
                 return
             else:
                 raise Exception
@@ -175,6 +221,9 @@ class BaselineCommands(object):
             return
 
     def abort(self):
+        '''ПРЕРЫВАНИЕ СЕССИИ. Пример для Docker - LINUX - "./baseline abort" -
+        WINDOWS - docker-compose exec -iT baseline sh -c "python baseline.py abort".
+        Подробнее об этом в файлах docs/commands-native.md и docs/commands-windows.md'''
         pid = None
         for proc in psutil.process_iter(['pid', 'name', 'username']):
             if proc.cmdline()[-2:] == ['python', 'core.py']:
@@ -201,6 +250,9 @@ class BaselineCommands(object):
             return
 
     def check(self):
+        '''ПРЕРЫВАНИЕ СОСТОЯНИЯ УТИЛИТЫ. Пример для Docker - LINUX - "./baseline check" -
+        WINDOWS - docker-compose exec -iT baseline sh -c "python baseline.py check".
+        Подробнее об этом в файлах docs/commands-native.md и docs/commands-windows.md'''
         pid = None
         for proc in psutil.process_iter(['pid', 'name', 'username']):
             if proc.cmdline()[-2:] == ['python', 'core.py']:
@@ -214,6 +266,9 @@ class BaselineCommands(object):
                   " - enter the command `python baseline.py core`")
 
     def flush(self):
+        '''ОЧИСТКА ВНУТРЕННЕЙ ОЧЕРЕДИ КОМАНД. Пример для Docker - LINUX - "./baseline flush" -
+        WINDOWS - docker-compose exec -iT baseline sh -c "python baseline.py flush".
+        Подробнее об этом в файлах docs/commands-native.md и docs/commands-windows.md'''
         input_queue_size = self.main_input_queue.qsize()
         if input_queue_size > 0:
             print("Current INPUT queue state - " + str(self.main_input_queue.qsize()) + ". Delete pending tasks")

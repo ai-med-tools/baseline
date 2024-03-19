@@ -2,7 +2,6 @@ import json
 
 
 class Validator:
-
     solution_from_file: dict
 
     def __init__(self, path):
@@ -13,6 +12,9 @@ class Validator:
         self.validate_json_is_empty()
         self.validate_count_objects()
         self.validate_json_structure()
+        self.validate_limit_keys()
+        self.validate_diagnosis_length()
+        self.validate_diagnosis_exists()
         pass
 
     def validate_json_is_it(self):
@@ -35,11 +37,54 @@ class Validator:
         pass
 
     def validate_json_structure(self):
+        av_keys = ['decorCode', 'code']
         for val in self.solution_from_file:
-            status = "start" in val and "end" in val and "decorCode" in val and "code" in val and "name" in val \
-                     and "xPath" in val
-            if not status:
-                raise StructureJsonIsIncorrect()
+            list = val.keys()
+            for key in list:
+                if key not in av_keys:
+                    raise StructureJsonIsIncorrect()
+            # status = "start" in val and "end" in val and "decorCode" in val and "code" in val and "name" in val \
+            #          and "xPath" in val
+            # if not status:
+            #     raise StructureJsonIsIncorrect()
+
+        pass
+
+    def validate_limit_keys(self):
+        count_desease = 0
+        count_sup = 0
+        count_main = 0
+        for val in self.solution_from_file:
+            if "decorCode" in val:
+                if val['decorCode'] == 'attendDisease':
+                    count_desease += 1
+                if val['decorCode'] == 'diagnosisSup':
+                    count_sup += 1
+                if val['decorCode'] == 'diagnosisMain':
+                    count_main += 1
+
+        if count_sup > 10 or count_desease > 10 or count_main > 1:
+            raise LimitKeysInJson()
+        pass
+
+    def validate_diagnosis_exists(self):
+        count_main = 0
+        for val in self.solution_from_file:
+            if "decorCode" in val:
+                if val['decorCode'] == 'diagnosisMain':
+                    count_main += 1
+
+        if count_main == 0:
+            raise ThereIsNoMainDiagnosis()
+        pass
+
+    def validate_diagnosis_length(self):
+        diagnosis_length = 10
+        for val in self.solution_from_file:
+            if "decorCode" in val:
+                if val['decorCode'] == 'diagnosisMain':
+                    if len(val['code']) > diagnosis_length:
+                        raise DiagnosisMainLength()
         pass
 
 
@@ -53,9 +98,21 @@ class StructureJsonIsIncorrect(Exception):
         return f'The structure of the JSON sent in the response does not match the TR.'
 
 
+class LimitKeysInJson(Exception):
+    def __str__(self):
+        return f'The number of decorCode key in the attendDisease or diagnosisSup or diagnosisMain values has been exceeded'
+
+class DiagnosisMainLength(Exception):
+    def __str__(self):
+        return f'The length of the main diagnosis line exceeded 10 characters'
+
 class NotJsonContentInFileError(Exception):
     def __str__(self):
         return f'The file at the specified path does not contain json.'
+
+class ThereIsNoMainDiagnosis(Exception):
+    def __str__(self):
+        return f'The main diagnosis does not exist in the sent markup.'
 
 
 class TooManyObjectsInTheArrayError(Exception):
