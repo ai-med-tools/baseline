@@ -8,6 +8,7 @@ from cfg_support import get_current_epicrisis_id
 from cfg_support import get_current_task_id
 from validator import Validator, NotJsonContentInFileError, TooManyObjectsInTheArrayError
 from validator import JsonIsEmpty, StructureJsonIsIncorrect, LimitKeysInJson, DiagnosisMainLength
+from validator import IncorrectKeyValues
 from validator import ThereIsNoMainDiagnosis
 from cfg_support import get_perfomance
 import socketio
@@ -25,7 +26,7 @@ class BaselineCommands(object):
 
         pid = None
         for proc in psutil.process_iter(['pid', 'name', 'username']):
-            if proc.cmdline() == ['python', 'core.py']:
+            if proc.cmdline()[-2:] == ['python', 'core.py']:
                 pid = proc.pid
         if pid:
             print("Baseline process is already started. PID - " + str(pid))
@@ -60,7 +61,7 @@ class BaselineCommands(object):
         try:
             pid = None
             for proc in psutil.process_iter(['pid', 'name', 'username']):
-                if proc.cmdline() == ['python', 'core.py']:
+                if proc.cmdline()[-2:] == ['python', 'core.py']:
                     proc.kill()
             print("Core successfully killed.")
         except:
@@ -72,7 +73,7 @@ class BaselineCommands(object):
         Подробнее об этом в файлах docs/commands-native.md и docs/commands-windows.md'''
         pid = None
         for proc in psutil.process_iter(['pid', 'name', 'username']):
-            if proc.cmdline() == ['python', 'core.py']:
+            if proc.cmdline()[-2:] == ['python', 'core.py']:
                 pid = proc.pid
         if not pid:
             print(f'Baseline CORE was not started, the command cannot be executed')
@@ -144,7 +145,7 @@ class BaselineCommands(object):
         Подробнее об этом в файлах docs/commands-native.md и docs/commands-windows.md'''
         pid = None
         for proc in psutil.process_iter(['pid', 'name', 'username']):
-            if proc.cmdline() == ['python', 'core.py']:
+            if proc.cmdline()[-2:] == ['python', 'core.py']:
                 pid = proc.pid
         if not pid:
             print(f'Baseline CORE was not started, the command cannot be executed')
@@ -188,6 +189,9 @@ class BaselineCommands(object):
         except DiagnosisMainLength as dml:
             print(dml)
             return
+        except IncorrectKeyValues as ikv:
+            print(ikv)
+            return
         except ThereIsNoMainDiagnosis as tinmd:
             print(tinmd)
             return
@@ -226,7 +230,7 @@ class BaselineCommands(object):
         Подробнее об этом в файлах docs/commands-native.md и docs/commands-windows.md'''
         pid = None
         for proc in psutil.process_iter(['pid', 'name', 'username']):
-            if proc.cmdline() == ['python', 'core.py']:
+            if proc.cmdline()[-2:] == ['python', 'core.py']:
                 pid = proc.pid
         if not pid:
             print(f'Baseline CORE was not started, the command cannot be executed')
@@ -255,7 +259,7 @@ class BaselineCommands(object):
         Подробнее об этом в файлах docs/commands-native.md и docs/commands-windows.md'''
         pid = None
         for proc in psutil.process_iter(['pid', 'name', 'username']):
-            if proc.cmdline() == ['python', 'core.py']:
+            if proc.cmdline()[-2:] == ['python', 'core.py']:
                 pid = proc.pid
         if pid:
             print("Baseline process is now started. PID - " + str(pid))
@@ -295,7 +299,7 @@ class BaselineCommands(object):
     def test(self, test_id: int, description: str):
         pid = None
         for proc in psutil.process_iter(['pid', 'name', 'username']):
-            if proc.cmdline() == ['python', 'core.py']:
+            if proc.cmdline()[-2:] == ['python', 'core.py']:
                 pid = proc.pid
         if not pid:
             print(f'Baseline CORE was not started, the command cannot be executed')
