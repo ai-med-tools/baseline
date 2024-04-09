@@ -14,7 +14,7 @@ sio = socketio.Client({
     'ssl_verify': False,
 })
 
-sio.register_namespace(BaselineNamespace('/baselinejj4vVgitXNkY'))
+sio.register_namespace(BaselineNamespace('/baselinePlcVsxPIaOoV'))
 
 main_dir = os.path.dirname(os.path.abspath(__file__))
 def native_baseline_queue():
@@ -28,7 +28,7 @@ def native_baseline_queue():
         msg = q.get()
         if msg["op"] == "start":
             # logger.info("Try to start session.")
-            sio.emit('session-start', msg["data"], "/baselinejj4vVgitXNkY")
+            sio.emit('session-start', msg["data"], "/baselinePlcVsxPIaOoV")
 
         if msg["op"] == "start-blank":
             logger.info(
@@ -48,7 +48,7 @@ def native_baseline_queue():
             try:
                 logger.info(dict(op="Attempt to request research", epicrisisId=msg["data"]["epicrisisId"],
                                  sessionId=msg["data"]["sessionId"], testId=msg["data"]["testId"]))
-                sio.emit("session-get-test", msg["data"], "/baselinejj4vVgitXNkY")
+                sio.emit("session-get-test", msg["data"], "/baselinePlcVsxPIaOoV")
 
             except Exception as e:
                 logger.info(dict(op="Error when send file", error=str(e)))
@@ -68,4 +68,4 @@ if __name__ == "__main__":
         thread.daemon = True
         thread.start()
 
-        sio.connect(f'{perfomance["aimed_host"]}?token={perfomance["token"]}', namespaces=['/baselinejj4vVgitXNkY'], transports=['websocket'])
+        sio.connect(f'{perfomance["aimed_host"]}?token={perfomance["token"]}', namespaces=['/baselinePlcVsxPIaOoV'], transports=['websocket'])
