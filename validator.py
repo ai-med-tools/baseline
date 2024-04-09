@@ -15,6 +15,7 @@ class Validator:
         self.validate_limit_keys()
         self.validate_diagnosis_length()
         self.validate_diagnosis_exists()
+        self.validate_incorrect_key_values()
         pass
 
     def validate_json_is_it(self):
@@ -56,6 +57,7 @@ class Validator:
         count_main = 0
         for val in self.solution_from_file:
             if "decorCode" in val:
+
                 if val['decorCode'] == 'attendDisease':
                     count_desease += 1
                 if val['decorCode'] == 'diagnosisSup':
@@ -65,6 +67,14 @@ class Validator:
 
         if count_sup > 10 or count_desease > 10 or count_main > 1:
             raise LimitKeysInJson()
+        pass
+
+    def validate_incorrect_key_values(self):
+        av_keys = ['attendDisease', 'diagnosisSup', 'diagnosisMain']
+        for val in self.solution_from_file:
+            if "decorCode" in val:
+                if val['decorCode'] not in av_keys:
+                    raise IncorrectKeyValues()
         pass
 
     def validate_diagnosis_exists(self):
@@ -101,6 +111,10 @@ class StructureJsonIsIncorrect(Exception):
 class LimitKeysInJson(Exception):
     def __str__(self):
         return f'The number of decorCode key in the attendDisease or diagnosisSup or diagnosisMain values has been exceeded'
+
+class IncorrectKeyValues(Exception):
+    def __str__(self):
+        return f'The decorCode field uses invalid key values'
 
 class DiagnosisMainLength(Exception):
     def __str__(self):

@@ -10,14 +10,16 @@ Current OUTPUT queue state - 0***
 - ```docker-compose exec -iT baseline sh -c "python baseline.py kill"``` - поиск и завершение процесса core.py. Закроет соединение с платформой и отключит сам процесс от внутренней очереди.# Документация по доступным командам
 ### Если утилита стартовала корректно
 
-- ```docker-compose exec -iT baseline sh -c "python baseline.py start --contest=doctor --stage=qualifying --type=training --count=10 --timeout=10"```
+- ```docker-compose exec -iT baseline sh -c "python baseline.py start --contest=doctor --stage=qualifying --type=training --count=10 --timeout=10 --nosology=1,2"```
 
 Список параметров - 
 1) ***contest*** - вид конкурса. возможные значения - **finder** / **doctor**
 2) ***stage*** - этап конкурса. возможные значения - **qualifying** / **semifinal** / **final**
 3) ***type*** - тип проводимой сессиии. возможные значения - **training** (тренировка) / **algorithmic** (алгоритмическая) / **challenge** (испытание)/ **estimated-training** (расчётно-тренировочная)
 4) ***count*** - количество запрашиваемых файлов. ОПЦИОНАЛЬНЫЙ. ранжируется в пределах от 1 до n, где n - это полное множество содержащихся в датасете эпикризов. При значении count > n будет показана ошибка
-5) ***timeout*** - таймаут. Промежуток времени между отправлением файлов с платформы. ОПЦИОНАЛЬНЫЙ. ранжируется в пределах от 10 до 60 секунд
+5) ***timeout*** - таймаут. Промежуток времени между отправлением файлов с платформы. ОПЦИОНАЛЬНЫЙ. ранжируется в пределах от 10 до 30 секунд
+6) 6) ***nosology*** - ID нозологии. Указывается через запятую без пробелов - 1,2,3,4,5,6 . Подробная информация здесь - 
+#### [Словарь нозологий](/docs/nosology.md)
 - ```docker-compose exec -iT baseline sh -c "python baseline.py send --path=<path_to_solution_json> --taskid=<ID_задачи>"``` - команда отправит на платформу решение в формате JSON. Пример указания пути - ```python baseline.py send --path=files/answer.json```. **ВАЖНО** - путь нужно указывать от корня ***baseline*** без точки в начале.
 - ```docker-compose exec -iT baseline sh -c "python baseline.py abort"``` - сигнал прерывания сессии со стороны клиента. запущенная ранее сессия будет прервана с соответствующими отметками. 
 ### Если утилита стартовала некорректно

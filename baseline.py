@@ -8,6 +8,7 @@ from cfg_support import get_current_epicrisis_id
 from cfg_support import get_current_task_id
 from validator import Validator, NotJsonContentInFileError, TooManyObjectsInTheArrayError
 from validator import JsonIsEmpty, StructureJsonIsIncorrect, LimitKeysInJson, DiagnosisMainLength
+from validator import IncorrectKeyValues
 from validator import ThereIsNoMainDiagnosis
 from cfg_support import get_perfomance
 import socketio
@@ -36,7 +37,7 @@ class BaselineCommands(object):
             ping = 'ping'
             sio = socketio.Client()
             sio.connect(f'{perfomance["aimed_host"]}?token={perfomance["token"]}&ping={ping}',
-                        namespaces=['/baselinejj4vVgitXNkY'],
+                        namespaces=['/baselinePlcVsxPIaOoV'],
                         transports=['websocket'], wait=True, wait_timeout=3)
             sio.disconnect()
         except Exception as e:
@@ -187,6 +188,9 @@ class BaselineCommands(object):
             return
         except DiagnosisMainLength as dml:
             print(dml)
+            return
+        except IncorrectKeyValues as ikv:
+            print(ikv)
             return
         except ThereIsNoMainDiagnosis as tinmd:
             print(tinmd)
