@@ -37,7 +37,7 @@ class BaselineCommands(object):
             ping = 'ping'
             sio = socketio.Client()
             sio.connect(f'{perfomance["aimed_host"]}?token={perfomance["token"]}&ping={ping}',
-                        namespaces=['/baselinePlcVsxPIaOoV'],
+                        namespaces=['/baselinejxowumdzzbap'],
                         transports=['websocket'], wait=True, wait_timeout=3)
             sio.disconnect()
         except Exception as e:
@@ -238,7 +238,7 @@ class BaselineCommands(object):
 
         try:
             perfomance = get_perfomance()
-            response = mureq.post(perfomance["download_host"] + '/abort', json={'token': perfomance["token"]})
+            response = mureq.post(perfomance["download_host"] + '/abort', json={'token': perfomance["token"]}, timeout=120)
             if response.status_code == 201:
                 logger.info(dict(op='session-abort', status='success',
                             message='Termination of session completed successfully'))
