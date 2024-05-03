@@ -95,6 +95,12 @@ class BaselineCommands(object):
             if count:
                 print(f'Parameter count cannot be specified in this session type.')
                 return
+
+        if type in [ "challenge"]:
+            if nosology:
+                print(f'Parameter setting is allowed only in the training session.')
+                return
+
         nosology_string = ''
         if nosology:
             if isinstance(nosology, int):
