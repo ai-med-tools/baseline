@@ -37,7 +37,7 @@ class BaselineCommands(object):
             ping = 'ping'
             sio = socketio.Client()
             sio.connect(f'{perfomance["aimed_host"]}?token={perfomance["token"]}&ping={ping}',
-                        namespaces=['/baselinejxowumdzzbap'],
+                        namespaces=['/baselinegimphzxlixnc'],
                         transports=['websocket'], wait=True, wait_timeout=3)
             sio.disconnect()
         except Exception as e:
@@ -95,6 +95,12 @@ class BaselineCommands(object):
             if count:
                 print(f'Parameter count cannot be specified in this session type.')
                 return
+
+        if type in [ "challenge"]:
+            if nosology:
+                print(f'Parameter setting is allowed only in the training session.')
+                return
+
         nosology_string = ''
         if nosology:
             if isinstance(nosology, int):
