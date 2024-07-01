@@ -297,8 +297,8 @@ class BaselineCommands(object):
             print("OUTPUT queue is empty. Skip.")
 
     def test(self, taskid, code):
-        '''ОТПРАВКА РЕЗУЛЬТАТА НА ПЛАТФОРМУ. Пример для Docker - LINUX - "./baseline send --taskid=<ID_задачи> --code=<code>" -
-        WINDOWS - docker-compose exec -iT baseline sh -c "python baseline.py send --path=<path_to_solution_json> --taskid=<ID_задачи>".
+        '''ОТПРАВКА РЕЗУЛЬТАТА НА ПЛАТФОРМУ. Пример для Docker - LINUX - "./baseline test --taskid=<ID_задачи> --code=<code>" -
+        WINDOWS - docker-compose exec -iT baseline sh -c "python baseline.py test --taskid=<ID_задачи> --code=<code>".
         Подробнее об этом в файлах docs/commands-native.md и docs/commands-windows.md'''
         pid = None
         for proc in psutil.process_iter(['pid', 'name', 'username']):
