@@ -11,6 +11,7 @@ class Validator:
         self.validate_json_is_it()
         self.validate_json_is_empty()
         self.validate_count_objects()
+        self.validate_prep_keys()
         self.validate_json_structure()
         self.validate_limit_keys()
         self.validate_diagnosis_length()
@@ -55,17 +56,19 @@ class Validator:
         count_desease = 0
         count_sup = 0
         count_main = 0
+        count_prep = 0
         for val in self.solution_from_file:
             if "decorCode" in val:
-
                 if val['decorCode'] == 'attendDisease':
                     count_desease += 1
                 if val['decorCode'] == 'diagnosisSup':
                     count_sup += 1
                 if val['decorCode'] == 'diagnosisMain':
                     count_main += 1
+                if val['decorCode'] == 'diagnosisPreliminary':
+                    count_prep += 1
 
-        if count_sup > 10 or count_desease > 10 or count_main > 1:
+        if count_sup > 10 or count_desease > 10 or count_main > 1 or count_prep > 1:
             raise LimitKeysInJson()
         pass
 
@@ -75,6 +78,21 @@ class Validator:
             if "decorCode" in val:
                 if val['decorCode'] not in av_keys:
                     raise IncorrectKeyValues()
+        pass
+
+    def validate_prep_keys(self):
+        count_prep = 0
+        another_list = []
+        for val in self.solution_from_file:
+            if "decorCode" in val:
+                if val['decorCode'] == 'diagnosisPreliminary':
+                    count_prep += 1
+                else:
+                    another_list.append(val['decorCode'])
+
+        if count_prep == 1:
+            if not another_list:
+                raise NotOnlyPrepDiagnosis()
         pass
 
     def validate_diagnosis_exists(self):
@@ -110,7 +128,7 @@ class StructureJsonIsIncorrect(Exception):
 
 class LimitKeysInJson(Exception):
     def __str__(self):
-        return f'The number of decorCode key in the attendDisease or diagnosisSup or diagnosisMain values has been exceeded'
+        return f'The number of decorCode key in the attendDisease or diagnosisSup or diagnosisMain or diagnosisPreliminary values has been exceeded'
 
 class IncorrectKeyValues(Exception):
     def __str__(self):
@@ -127,6 +145,10 @@ class NotJsonContentInFileError(Exception):
 class ThereIsNoMainDiagnosis(Exception):
     def __str__(self):
         return f'The main diagnosis does not exist in the sent markup.'
+
+class NotOnlyPrepDiagnosis(Exception):
+    def __str__(self):
+        return f'You sent something other keys than a preliminary diagnosis.'
 
 
 class TooManyObjectsInTheArrayError(Exception):
