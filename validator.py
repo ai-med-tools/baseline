@@ -73,7 +73,7 @@ class Validator:
         pass
 
     def validate_incorrect_key_values(self):
-        av_keys = ['attendDisease', 'diagnosisSup', 'diagnosisMain']
+        av_keys = ['attendDisease', 'diagnosisSup', 'diagnosisMain', 'diagnosisPreliminary']
         for val in self.solution_from_file:
             if "decorCode" in val:
                 if val['decorCode'] not in av_keys:
@@ -89,20 +89,22 @@ class Validator:
                     count_prep += 1
                 else:
                     another_list.append(val['decorCode'])
-
         if count_prep == 1:
-            if not another_list:
+            if len(another_list) > 0:
                 raise NotOnlyPrepDiagnosis()
         pass
 
     def validate_diagnosis_exists(self):
         count_main = 0
+        count_prep = 0
         for val in self.solution_from_file:
             if "decorCode" in val:
                 if val['decorCode'] == 'diagnosisMain':
                     count_main += 1
+                if val['decorCode'] == 'diagnosisPreliminary':
+                    count_prep += 1
 
-        if count_main == 0:
+        if count_main == 0 and count_prep == 0:
             raise ThereIsNoMainDiagnosis()
         pass
 

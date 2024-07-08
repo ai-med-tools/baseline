@@ -326,7 +326,7 @@ class BaselineCommands(object):
             return
         body = json.loads(response.body)
         if body:
-            logger.info(dict(op='research-request', status='success',
+            logger.info(dict(op='research-request', status='success(http-status)',
                              message=dict(task=taskid, code=code)))
             for it in body:
                 if "link" in it:
