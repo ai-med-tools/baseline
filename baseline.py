@@ -312,11 +312,22 @@ class BaselineCommands(object):
             return
 
         perfomance = get_perfomance()
+
+        logger.info(dict(op='research-request', status='error(not-found)',
+                         message=dict(task=taskid, code=code)))
         response = mureq.post(perfomance["download_host"] + '/get-test',
                               json={'token': perfomance["token"], 'taskId': taskid, 'code': code})
 
+        print(response.status_code)
+        if response.status_code > 201:
+            logger.info(dict(op='research-request', status='error(not-found)',
+                             message=dict(task=taskid, code=code)))
+            print('По вашему запросу не найдены исследования')
+            return
         body = json.loads(response.body)
         if body:
+            logger.info(dict(op='research-request', status='success',
+                             message=dict(task=taskid, code=code)))
             for it in body:
                 if "link" in it:
                     test_path = get_current_test_path()
@@ -325,10 +336,16 @@ class BaselineCommands(object):
                     response = mureq.get(it['link'])
                     with open(current_test_path, 'wb') as file:
                         file.write(response.content)
-                    logger.info(dict(op='research-saved', status='success',
-                                     message=dict(task=taskid)))
+                    reqs = mureq.post(perfomance["download_host"] + '/test-is-rec',
+                                          json={'token': perfomance["token"], 'taskId': taskid, 'code': code, 'id': it["id"]})
+                    if reqs.status_code > 201:
+                        logger.info(dict(op='research-request', status='error(set-received-time)',
+                                         message=dict(task=taskid, code=code)))
+                    logger.info(dict(op='research-request', status='success(saved)',
+                                     message=dict(task=taskid, code=code)))
+            print('Исследования сохранены.')
 
-        print('Исследования сохранены.')
+
         pass
 
 
