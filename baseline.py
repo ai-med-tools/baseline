@@ -206,34 +206,34 @@ class BaselineCommands(object):
             print(tinmd)
             return
 
-        try:
-            a = dt.datetime.now()
-            perfomance = get_perfomance()
-            main_dir = os.path.dirname(os.path.abspath(__file__))
-            check_file = os.path.join(main_dir, path)
-            with open(check_file, 'r') as f:
-                solution_raw_content = f.read()
-
-            solution_from_file = json.loads(solution_raw_content)
-            response = mureq.post(perfomance["download_host"] + '/upload-result',
-                                  json={'token': perfomance["token"], 'taskId': taskid, 'answer': solution_from_file})
-            b = dt.datetime.now()
-            less = (b-a).total_seconds()
-            if response.status_code == 201:
-                logger.info(dict(op='file-send', status='success',
-                            message=dict(session=currentsessionid, task=taskid, time=less)))
-                print(f'File task ID - {taskid} - successfuly sent. Upload time -  {less}')
-                return
-            else:
-                raise Exception
-
-        except Exception as e:
+        a = dt.datetime.now()
+        perfomance = get_perfomance()
+        main_dir = os.path.dirname(os.path.abspath(__file__))
+        check_file = os.path.join(main_dir, path)
+        with open(check_file, 'r') as f:
+            solution_raw_content = f.read()
+        solution_from_file = json.loads(solution_raw_content)
+        response = mureq.post(perfomance["download_host"] + '/upload-result',
+                              json={'token': perfomance["token"], 'taskId': taskid, 'answer': solution_from_file})
+        b = dt.datetime.now()
+        less = (b-a).total_seconds()
+        if response.status_code == 400:
+            print(f'The submitted response is not validated')
             logger.info(dict(op='file-send', status='error',
-                        message=dict(session=currentsessionid, task=taskid)))
-            print('File do not sent. Error.')
-            print(e)
+                        message=dict(code=400, session=currentsessionid, task=taskid, time=less)))
+        if response.status_code == 404:
+            print(f'Baseline token and task ID could not be matched. The task to which the response is sent does not exist in your current session.')
+            logger.info(dict(op='file-send', status='error',
+                        message=dict(code=404, session=currentsessionid, task=taskid, time=less)))
+        if response.status_code == 422:
+            print(f'It is impossible to send a final diagnosis without a preliminary one. Submit your preliminary diagnosis first.')
+            logger.info(dict(op='file-send', status='error',
+                        message=dict(code=422, session=currentsessionid, task=taskid, time=less)))
+        if response.status_code == 201:
+            logger.info(dict(op='file-send', status='success',
+                        message=dict(session=currentsessionid, task=taskid, time=less)))
+            print(f'File task ID - {taskid} - successfuly sent. Upload time -  {less}')
             return
-
     def abort(self):
         '''ПРЕРЫВАНИЕ СЕССИИ. Пример для Docker - LINUX - "./baseline abort" -
         WINDOWS - docker-compose exec -iT baseline sh -c "python baseline.py abort".
