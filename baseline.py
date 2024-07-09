@@ -312,13 +312,8 @@ class BaselineCommands(object):
             return
 
         perfomance = get_perfomance()
-
-        logger.info(dict(op='research-request', status='error(not-found)',
-                         message=dict(task=taskid, code=code)))
         response = mureq.post(perfomance["download_host"] + '/get-test',
                               json={'token': perfomance["token"], 'taskId': taskid, 'code': code})
-
-        print(response.status_code)
         if response.status_code > 201:
             logger.info(dict(op='research-request', status='error(not-found)',
                              message=dict(task=taskid, code=code)))
