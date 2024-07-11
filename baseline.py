@@ -9,7 +9,7 @@ from cfg_support import get_current_task_id
 from validator import Validator, NotJsonContentInFileError, TooManyObjectsInTheArrayError
 from validator import JsonIsEmpty, StructureJsonIsIncorrect, LimitKeysInJson, DiagnosisMainLength
 from validator import IncorrectKeyValues
-from validator import ThereIsNoMainDiagnosis, NotOnlyPrepDiagnosis
+from validator import ThereIsNoMainDiagnosis, NotOnlyPrepDiagnosis, DiagnosisPrepLength
 from cfg_support import get_perfomance
 import socketio
 import datetime as dt
@@ -195,6 +195,9 @@ class BaselineCommands(object):
             return
         except DiagnosisMainLength as dml:
             print(dml)
+            return
+        except DiagnosisPrepLength as dpl:
+            print(dpl)
             return
         except NotOnlyPrepDiagnosis as nopd:
             print(nopd)

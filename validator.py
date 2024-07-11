@@ -15,6 +15,7 @@ class Validator:
         self.validate_json_structure()
         self.validate_limit_keys()
         self.validate_diagnosis_length()
+        self.validate_diagnosis_prep_length()
         self.validate_diagnosis_exists()
         self.validate_incorrect_key_values()
         pass
@@ -118,6 +119,16 @@ class Validator:
         pass
 
 
+    def validate_diagnosis_prep_length(self):
+        diagnosis_length = 10
+        for val in self.solution_from_file:
+            if "decorCode" in val:
+                if val['decorCode'] == 'diagnosisPreliminary':
+                    if len(val['code']) > diagnosis_length:
+                        raise DiagnosisPrepLength()
+        pass
+
+
 class JsonIsEmpty(Exception):
     def __str__(self):
         return f'Answer JSON is empty.'
@@ -139,6 +150,10 @@ class IncorrectKeyValues(Exception):
 class DiagnosisMainLength(Exception):
     def __str__(self):
         return f'The length of the main diagnosis line exceeded 10 characters'
+
+class DiagnosisPrepLength(Exception):
+    def __str__(self):
+        return f'The length of the preliminary diagnosis line exceeded 10 characters'
 
 class NotJsonContentInFileError(Exception):
     def __str__(self):
