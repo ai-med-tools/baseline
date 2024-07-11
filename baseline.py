@@ -314,10 +314,15 @@ class BaselineCommands(object):
         perfomance = get_perfomance()
         response = mureq.post(perfomance["download_host"] + '/get-test',
                               json={'token': perfomance["token"], 'taskId': taskid, 'code': code})
-        if response.status_code > 201:
+        if response.status_code == 404:
             logger.info(dict(op='research-request', status='error(not-found)',
                              message=dict(task=taskid, code=code)))
             print('По вашему запросу не найдены исследования')
+            return
+        if response.status_code == 400:
+            logger.info(dict(op='research-request', status='error(not-prep-diagnosis)',
+                             message=dict(task=taskid, code=code)))
+            print('Необходимо прислать предварительный диагноз')
             return
         body = json.loads(response.body)
         if body:
