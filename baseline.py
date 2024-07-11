@@ -326,6 +326,11 @@ class BaselineCommands(object):
                              message=dict(task=taskid, code=code)))
             print('По вашему запросу не найдены исследования')
             return
+        if response.status_code == 408:
+            logger.info(dict(op='research-request', status='error(task-timeout)',
+                             message=dict(task=taskid, code=code)))
+            print('Задача просрочена')
+            return
         if response.status_code == 400:
             logger.info(dict(op='research-request', status='error(not-prep-diagnosis)',
                              message=dict(task=taskid, code=code)))
