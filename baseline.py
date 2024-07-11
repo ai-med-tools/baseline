@@ -224,6 +224,10 @@ class BaselineCommands(object):
             print(f'The submitted response is not validated')
             logger.info(dict(op='file-send', status='error',
                         message=dict(code=400, session=currentsessionid, task=taskid, time=less)))
+        if response.status_code == 409:
+            print(f'The preliminary diagnosis was sent again')
+            logger.info(dict(op='file-send', status='error',
+                        message=dict(code=409, session=currentsessionid, task=taskid, time=less)))
         if response.status_code == 404:
             print(f'Baseline token and task ID could not be matched. The task to which the response is sent does not exist in your current session.')
             logger.info(dict(op='file-send', status='error',
