@@ -87,6 +87,15 @@ class BaselineCommands(object):
                 print(f'Parameter setting is allowed only in the training session.')
                 return
 
+        if type in [ "estraining"]:
+            if count:
+                if count == 0:
+                    print(f'Parameter count cannot be equal zero.')
+                return
+            if timeout:
+                if timeout == 0:
+                    print(f'Parameter timeout cannot be equal zero.')
+                return
         # if contest in ["doctor"]:
         #     if type in ["training"]:
         #         if not count:
