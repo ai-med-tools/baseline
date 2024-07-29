@@ -8,7 +8,7 @@ from cfg_support import get_current_epicrisis_id
 from cfg_support import get_current_task_id
 from validator import Validator, NotJsonContentInFileError, TooManyObjectsInTheArrayError
 from validator import JsonIsEmpty, StructureJsonIsIncorrect, LimitKeysInJson, DiagnosisMainLength
-from validator import IncorrectKeyValues
+from validator import IncorrectKeyValues, DiagnosisSupLength, AttendDiseaseLength
 from validator import ThereIsNoMainDiagnosis, NotOnlyPrepDiagnosis, DiagnosisPrepLength
 from cfg_support import get_perfomance
 import socketio
@@ -204,6 +204,12 @@ class BaselineCommands(object):
             return
         except DiagnosisMainLength as dml:
             print(dml)
+            return
+        except DiagnosisSupLength as dsl:
+            print(dsl)
+            return
+        except AttendDiseaseLength as adl:
+            print(adl)
             return
         except DiagnosisPrepLength as dpl:
             print(dpl)
