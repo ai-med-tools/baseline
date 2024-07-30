@@ -151,6 +151,14 @@ class DiagnosisMainLength(Exception):
     def __str__(self):
         return f'The length of the main diagnosis line exceeded 10 characters'
 
+class AttendDiseaseLength(Exception):
+    def __str__(self):
+        return f'The length of the attend disease line exceeded 10 characters'
+
+class DiagnosisSupLength(Exception):
+    def __str__(self):
+        return f'The length of the sup diagnosis line exceeded 10 characters'
+
 class DiagnosisPrepLength(Exception):
     def __str__(self):
         return f'The length of the preliminary diagnosis line exceeded 10 characters'
