@@ -87,7 +87,7 @@ class BaselineCommands(object):
                 print(f'Parameter setting is allowed only in the training session.')
                 return
 
-        if type in [ "estraining"]:
+        if type in ["training"]:
             if count:
                 if count == 0:
                     print(f'Parameter count cannot be equal zero.')
