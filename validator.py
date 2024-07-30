@@ -16,6 +16,8 @@ class Validator:
         self.validate_limit_keys()
         self.validate_diagnosis_length()
         self.validate_diagnosis_prep_length()
+        self.validate_diagnosis_sup_length()
+        self.validate_attend_disease_length()
         self.validate_diagnosis_exists()
         self.validate_incorrect_key_values()
         pass
@@ -126,6 +128,24 @@ class Validator:
                 if val['decorCode'] == 'diagnosisPreliminary':
                     if len(val['code']) > diagnosis_length:
                         raise DiagnosisPrepLength()
+        pass
+
+    def validate_diagnosis_sup_length(self):
+        diagnosis_length = 10
+        for val in self.solution_from_file:
+            if "decorCode" in val:
+                if val['decorCode'] == 'diagnosisSup':
+                    if len(val['code']) > diagnosis_length:
+                        raise DiagnosisSupLength()
+        pass
+
+    def validate_attend_disease_length(self):
+        diagnosis_length = 10
+        for val in self.solution_from_file:
+            if "decorCode" in val:
+                if val['decorCode'] == 'attendDisease':
+                    if len(val['code']) > diagnosis_length:
+                        raise AttendDiseaseLength()
         pass
 
 
