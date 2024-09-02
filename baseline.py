@@ -325,6 +325,14 @@ class BaselineCommands(object):
             print(f'Baseline CORE was not started, the command cannot be executed')
             return
 
+
+        if taskid == '':
+            print('Ошибка - Параметр taskid пуст.')
+            return
+        if code == '':
+            print('Ошибка - Параметр code пуст.')
+            return
+
         perfomance = get_perfomance()
         response = mureq.post(perfomance["download_host"] + '/get-test',
                               json={'token': perfomance["token"], 'taskId': taskid, 'code': code})
@@ -343,7 +351,13 @@ class BaselineCommands(object):
                              message=dict(task=taskid, code=code)))
             print('Необходимо прислать предварительный диагноз')
             return
+        if response.status_code == 500:
+            logger.info(dict(op='research-request', status='error(server-error)',
+                             message=dict(task=taskid, code=code)))
+            print('Запрос исследований невалиден.')
+            return
         body = json.loads(response.body)
+        print(body)
         if body:
             logger.info(dict(op='research-request', status='success(http-status)',
                              message=dict(task=taskid, code=code)))
