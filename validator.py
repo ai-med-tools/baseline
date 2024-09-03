@@ -11,9 +11,13 @@ class Validator:
         self.validate_json_is_it()
         self.validate_json_is_empty()
         self.validate_count_objects()
+        self.validate_prep_keys()
         self.validate_json_structure()
         self.validate_limit_keys()
         self.validate_diagnosis_length()
+        self.validate_diagnosis_prep_length()
+        self.validate_diagnosis_sup_length()
+        self.validate_attend_disease_length()
         self.validate_diagnosis_exists()
         self.validate_incorrect_key_values()
         pass
@@ -55,36 +59,55 @@ class Validator:
         count_desease = 0
         count_sup = 0
         count_main = 0
+        count_prep = 0
         for val in self.solution_from_file:
             if "decorCode" in val:
-
                 if val['decorCode'] == 'attendDisease':
                     count_desease += 1
                 if val['decorCode'] == 'diagnosisSup':
                     count_sup += 1
                 if val['decorCode'] == 'diagnosisMain':
                     count_main += 1
+                if val['decorCode'] == 'diagnosisPreliminary':
+                    count_prep += 1
 
-        if count_sup > 10 or count_desease > 10 or count_main > 1:
+        if count_sup > 10 or count_desease > 10 or count_main > 1 or count_prep > 1:
             raise LimitKeysInJson()
         pass
 
     def validate_incorrect_key_values(self):
-        av_keys = ['attendDisease', 'diagnosisSup', 'diagnosisMain']
+        av_keys = ['attendDisease', 'diagnosisSup', 'diagnosisMain', 'diagnosisPreliminary']
         for val in self.solution_from_file:
             if "decorCode" in val:
                 if val['decorCode'] not in av_keys:
                     raise IncorrectKeyValues()
         pass
 
+    def validate_prep_keys(self):
+        count_prep = 0
+        another_list = []
+        for val in self.solution_from_file:
+            if "decorCode" in val:
+                if val['decorCode'] == 'diagnosisPreliminary':
+                    count_prep += 1
+                else:
+                    another_list.append(val['decorCode'])
+        if count_prep == 1:
+            if len(another_list) > 0:
+                raise NotOnlyPrepDiagnosis()
+        pass
+
     def validate_diagnosis_exists(self):
         count_main = 0
+        count_prep = 0
         for val in self.solution_from_file:
             if "decorCode" in val:
                 if val['decorCode'] == 'diagnosisMain':
                     count_main += 1
+                if val['decorCode'] == 'diagnosisPreliminary':
+                    count_prep += 1
 
-        if count_main == 0:
+        if count_main == 0 and count_prep == 0:
             raise ThereIsNoMainDiagnosis()
         pass
 
@@ -95,6 +118,34 @@ class Validator:
                 if val['decorCode'] == 'diagnosisMain':
                     if len(val['code']) > diagnosis_length:
                         raise DiagnosisMainLength()
+        pass
+
+
+    def validate_diagnosis_prep_length(self):
+        diagnosis_length = 10
+        for val in self.solution_from_file:
+            if "decorCode" in val:
+                if val['decorCode'] == 'diagnosisPreliminary':
+                    if len(val['code']) > diagnosis_length:
+                        raise DiagnosisPrepLength()
+        pass
+
+    def validate_diagnosis_sup_length(self):
+        diagnosis_length = 10
+        for val in self.solution_from_file:
+            if "decorCode" in val:
+                if val['decorCode'] == 'diagnosisSup':
+                    if len(val['code']) > diagnosis_length:
+                        raise DiagnosisSupLength()
+        pass
+
+    def validate_attend_disease_length(self):
+        diagnosis_length = 10
+        for val in self.solution_from_file:
+            if "decorCode" in val:
+                if val['decorCode'] == 'attendDisease':
+                    if len(val['code']) > diagnosis_length:
+                        raise AttendDiseaseLength()
         pass
 
 
@@ -110,7 +161,7 @@ class StructureJsonIsIncorrect(Exception):
 
 class LimitKeysInJson(Exception):
     def __str__(self):
-        return f'The number of decorCode key in the attendDisease or diagnosisSup or diagnosisMain values has been exceeded'
+        return f'The number of decorCode key in the attendDisease or diagnosisSup or diagnosisMain or diagnosisPreliminary values has been exceeded'
 
 class IncorrectKeyValues(Exception):
     def __str__(self):
@@ -120,6 +171,18 @@ class DiagnosisMainLength(Exception):
     def __str__(self):
         return f'The length of the main diagnosis line exceeded 10 characters'
 
+class AttendDiseaseLength(Exception):
+    def __str__(self):
+        return f'The length of the attend disease line exceeded 10 characters'
+
+class DiagnosisSupLength(Exception):
+    def __str__(self):
+        return f'The length of the sup diagnosis line exceeded 10 characters'
+
+class DiagnosisPrepLength(Exception):
+    def __str__(self):
+        return f'The length of the preliminary diagnosis line exceeded 10 characters'
+
 class NotJsonContentInFileError(Exception):
     def __str__(self):
         return f'The file at the specified path does not contain json.'
@@ -127,6 +190,10 @@ class NotJsonContentInFileError(Exception):
 class ThereIsNoMainDiagnosis(Exception):
     def __str__(self):
         return f'The main diagnosis does not exist in the sent markup.'
+
+class NotOnlyPrepDiagnosis(Exception):
+    def __str__(self):
+        return f'You sent something other keys than a preliminary diagnosis.'
 
 
 class TooManyObjectsInTheArrayError(Exception):

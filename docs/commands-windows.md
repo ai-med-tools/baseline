@@ -34,6 +34,6 @@ Current OUTPUT queue state - 0***
 
 ## Для финальных сессий
 На финальной сессии конкурса I'm doctor необходимо в ходе обмена запрашивать дополнительные фрагменты эпикриза с исследованиями. Это делается командой
-- ```docker-compose exec -iT baseline sh -c "python baseline.py test --test_id=<id_исследования> --description=<обоснование_запроса_исследования_в_кавычках> --hypotheses=<массив_с_предполагаемыми_id_диагноза>"```
+- ```docker-compose exec -iT baseline sh -c "python baseline.py test --taskid=<ID_задачи> --code=<код_исследования>"```
 Для параметров запуска этой команды есть отдельный md файл 
 #### [Описание параметров команды ./baseline test](/docs/final-params.md)

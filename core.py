@@ -44,14 +44,6 @@ def native_baseline_queue():
             socket_status = dict(op='status', websocket_status=sio.connected)
             qi.put(socket_status)
             # logger.info(socket_status)
-        if msg["op"] == 'gettest':
-            try:
-                logger.info(dict(op="Attempt to request research", epicrisisId=msg["data"]["epicrisisId"],
-                                 sessionId=msg["data"]["sessionId"], testId=msg["data"]["testId"]))
-                sio.emit("session-get-test", msg["data"], "/baselinezcllbpxcgrye")
-
-            except Exception as e:
-                logger.info(dict(op="Error when send file", error=str(e)))
 
         print(msg)
         print(msg['op'])
