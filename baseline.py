@@ -8,12 +8,13 @@ from cfg_support import get_current_epicrisis_id
 from cfg_support import get_current_task_id
 from validator import Validator, NotJsonContentInFileError, TooManyObjectsInTheArrayError
 from validator import JsonIsEmpty, StructureJsonIsIncorrect, LimitKeysInJson, DiagnosisMainLength
-from validator import IncorrectKeyValues
-from validator import ThereIsNoMainDiagnosis
+from validator import IncorrectKeyValues, DiagnosisSupLength, AttendDiseaseLength
+from validator import ThereIsNoMainDiagnosis, NotOnlyPrepDiagnosis, DiagnosisPrepLength
 from cfg_support import get_perfomance
 import socketio
 import datetime as dt
 from push_log import logger
+from cfg_support import get_current_test_path
 
 
 class BaselineCommands(object):
@@ -85,12 +86,13 @@ class BaselineCommands(object):
             if count or timeout:
                 print(f'Parameter setting is allowed only in the training session.')
                 return
-
-        if contest in ["doctor"]:
-            if type in ["training"]:
-                if not count:
-                    count = 100
-
+        if type in ["training"]:
+            if count is not None and count == 0:
+                print(f'Parameter count cannot be equal zero.')
+                return
+            if timeout is not None and timeout == 0:
+                print(f'Parameter timeout cannot be equal zero.')
+                return
         if type in [ "estimated-training"]:
             if count:
                 print(f'Parameter count cannot be specified in this session type.')
@@ -195,6 +197,18 @@ class BaselineCommands(object):
         except DiagnosisMainLength as dml:
             print(dml)
             return
+        except DiagnosisSupLength as dsl:
+            print(dsl)
+            return
+        except AttendDiseaseLength as adl:
+            print(adl)
+            return
+        except DiagnosisPrepLength as dpl:
+            print(dpl)
+            return
+        except NotOnlyPrepDiagnosis as nopd:
+            print(nopd)
+            return
         except IncorrectKeyValues as ikv:
             print(ikv)
             return
@@ -202,34 +216,38 @@ class BaselineCommands(object):
             print(tinmd)
             return
 
-        try:
-            a = dt.datetime.now()
-            perfomance = get_perfomance()
-            main_dir = os.path.dirname(os.path.abspath(__file__))
-            check_file = os.path.join(main_dir, path)
-            with open(check_file, 'r') as f:
-                solution_raw_content = f.read()
-
-            solution_from_file = json.loads(solution_raw_content)
-            response = mureq.post(perfomance["download_host"] + '/upload-result',
-                                  json={'token': perfomance["token"], 'taskId': taskid, 'answer': solution_from_file})
-            b = dt.datetime.now()
-            less = (b-a).total_seconds()
-            if response.status_code == 201:
-                logger.info(dict(op='file-send', status='success',
-                            message=dict(session=currentsessionid, task=taskid, time=less)))
-                print(f'File task ID - {taskid} - successfuly sent. Upload time -  {less}')
-                return
-            else:
-                raise Exception
-
-        except Exception as e:
+        a = dt.datetime.now()
+        perfomance = get_perfomance()
+        main_dir = os.path.dirname(os.path.abspath(__file__))
+        check_file = os.path.join(main_dir, path)
+        with open(check_file, 'r') as f:
+            solution_raw_content = f.read()
+        solution_from_file = json.loads(solution_raw_content)
+        response = mureq.post(perfomance["download_host"] + '/upload-result',
+                              json={'token': perfomance["token"], 'taskId': taskid, 'answer': solution_from_file})
+        b = dt.datetime.now()
+        less = (b-a).total_seconds()
+        if response.status_code == 400:
+            print(f'The submitted response is not validated')
             logger.info(dict(op='file-send', status='error',
-                        message=dict(session=currentsessionid, task=taskid)))
-            print('File do not sent. Error.')
-            print(e)
+                        message=dict(code=400, session=currentsessionid, task=taskid, time=less)))
+        if response.status_code == 409:
+            print(f'The preliminary diagnosis was sent again')
+            logger.info(dict(op='file-send', status='error',
+                        message=dict(code=409, session=currentsessionid, task=taskid, time=less)))
+        if response.status_code == 404:
+            print(f'Baseline token and task ID could not be matched. The task to which the response is sent does not exist in your current session.')
+            logger.info(dict(op='file-send', status='error',
+                        message=dict(code=404, session=currentsessionid, task=taskid, time=less)))
+        if response.status_code == 422:
+            print(f'It is impossible to send a final diagnosis without a preliminary one. Submit your preliminary diagnosis first.')
+            logger.info(dict(op='file-send', status='error',
+                        message=dict(code=422, session=currentsessionid, task=taskid, time=less)))
+        if response.status_code == 201:
+            logger.info(dict(op='file-send', status='success',
+                        message=dict(session=currentsessionid, task=taskid, time=less)))
+            print(f'File task ID - {taskid} - successfuly sent. Upload time -  {less}')
             return
-
     def abort(self):
         '''ПРЕРЫВАНИЕ СЕССИИ. Пример для Docker - LINUX - "./baseline abort" -
         WINDOWS - docker-compose exec -iT baseline sh -c "python baseline.py abort".
@@ -295,14 +313,10 @@ class BaselineCommands(object):
         else:
             print("OUTPUT queue is empty. Skip.")
 
-    ## python baseline.py test --test_id=1 --description="Lorem ipsum dolor sit amet"
-    ## ограничение на кол-во символов в обосновании диагноза (500)
-    ## давать список исследований нельзя - это подсказка (но а как узнать, что вообще представлено и как обрабатывать случаи матчинга имён?) (!)
-    ## нужна проверка на сумму 100% для всех гипотез
-    ## не пускаем на платформу невалидный запрос исследований или проверяем - проверяем по справочнику
-
-    ## - список нозологий закладываем в бейзлайн (!)
-    def test(self, test_id: int, description: str):
+    def test(self, taskid, code):
+        '''ОТПРАВКА РЕЗУЛЬТАТА НА ПЛАТФОРМУ. Пример для Docker - LINUX - "./baseline test --taskid=<ID_задачи> --code=<code>" -
+        WINDOWS - docker-compose exec -iT baseline sh -c "python baseline.py test --taskid=<ID_задачи> --code=<code>".
+        Подробнее об этом в файлах docs/commands-native.md и docs/commands-windows.md'''
         pid = None
         for proc in psutil.process_iter(['pid', 'name', 'username']):
             if proc.cmdline()[-2:] == ['python', 'core.py']:
@@ -311,35 +325,60 @@ class BaselineCommands(object):
             print(f'Baseline CORE was not started, the command cannot be executed')
             return
 
-        if len(description) > 500:
-            print("The 'description' field is limited to 500 characters")
+
+        if taskid == '':
+            print('Ошибка - Параметр taskid пуст.')
+            return
+        if code == '':
+            print('Ошибка - Параметр code пуст.')
             return
 
-        if test_id not in [1, 2, 3, 4, 5, 6]:
-            print("Test with this ID (test_id param) does not exist")
-
+        perfomance = get_perfomance()
+        response = mureq.post(perfomance["download_host"] + '/get-test',
+                              json={'token': perfomance["token"], 'taskId': taskid, 'code': code})
+        if response.status_code == 404:
+            logger.info(dict(op='research-request', status='error(not-found)',
+                             message=dict(task=taskid, code=code)))
+            print('По вашему запросу не найдены исследования')
             return
+        if response.status_code == 408:
+            logger.info(dict(op='research-request', status='error(task-timeout)',
+                             message=dict(task=taskid, code=code)))
+            print('Задача просрочена')
+            return
+        if response.status_code == 400:
+            logger.info(dict(op='research-request', status='error(not-prep-diagnosis)',
+                             message=dict(task=taskid, code=code)))
+            print('Необходимо прислать предварительный диагноз')
+            return
+        if response.status_code == 500:
+            logger.info(dict(op='research-request', status='error(server-error)',
+                             message=dict(task=taskid, code=code)))
+            print('Запрос исследований невалиден.')
+            return
+        body = json.loads(response.body)
+        print(body)
+        if body:
+            logger.info(dict(op='research-request', status='success(http-status)',
+                             message=dict(task=taskid, code=code)))
+            for it in body:
+                if "link" in it:
+                    test_path = get_current_test_path()
+                    current_test_path = os.path.join(test_path,
+                                                          f'{it["id"]}_{code}_{taskid}.xml')
+                    response = mureq.get(it['link'])
+                    with open(current_test_path, 'wb') as file:
+                        file.write(response.content)
+                    reqs = mureq.post(perfomance["download_host"] + '/test-is-rec',
+                                          json={'token': perfomance["token"], 'taskId': taskid, 'code': code, 'id': it["id"]})
+                    if reqs.status_code > 201:
+                        logger.info(dict(op='research-request', status='error(set-received-time)',
+                                         message=dict(task=taskid, code=code)))
+                    logger.info(dict(op='research-request', status='success(saved)',
+                                     message=dict(task=taskid, code=code)))
+            print('Исследования сохранены.')
 
-        currentsessionid = get_current_session_id()
-        currentepicrisisid = get_current_epicrisis_id()
-        currenttaskid = get_current_task_id()
 
-        self.main_input_queue.put(
-            dict(
-                op="gettest",
-                data={
-                    "description": description,
-                    "sessionId": currentsessionid,
-                    "epicrisisId": currentepicrisisid,
-                    "testId": test_id,
-                    "taskId": currenttaskid
-                }
-            )
-        )
-
-        answer = self.main_output_queue.get()
-
-        print(answer)
         pass
 
 
