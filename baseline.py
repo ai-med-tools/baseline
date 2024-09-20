@@ -38,7 +38,7 @@ class BaselineCommands(object):
             ping = 'ping'
             sio = socketio.Client()
             sio.connect(f'{perfomance["aimed_host"]}?token={perfomance["token"]}&ping={ping}',
-                        namespaces=['/baselinezcllbpxcgrye'],
+                        namespaces=['/baselinelijrodbygxqc'],
                         transports=['websocket'], wait=True, wait_timeout=3)
             sio.disconnect()
         except Exception as e:
@@ -357,7 +357,6 @@ class BaselineCommands(object):
             print('Запрос исследований невалиден.')
             return
         body = json.loads(response.body)
-        print(body)
         if body:
             logger.info(dict(op='research-request', status='success(http-status)',
                              message=dict(task=taskid, code=code)))

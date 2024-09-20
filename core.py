@@ -14,7 +14,7 @@ sio = socketio.Client({
     'ssl_verify': False,
 })
 
-sio.register_namespace(BaselineNamespace('/baselinezcllbpxcgrye'))
+sio.register_namespace(BaselineNamespace('/baselinelijrodbygxqc'))
 
 main_dir = os.path.dirname(os.path.abspath(__file__))
 def native_baseline_queue():
@@ -28,7 +28,7 @@ def native_baseline_queue():
         msg = q.get()
         if msg["op"] == "start":
             # logger.info("Try to start session.")
-            sio.emit('session-start', msg["data"], "/baselinezcllbpxcgrye")
+            sio.emit('session-start', msg["data"], "/baselinelijrodbygxqc")
 
         if msg["op"] == "start-blank":
             logger.info(
@@ -60,4 +60,4 @@ if __name__ == "__main__":
         thread.daemon = True
         thread.start()
 
-        sio.connect(f'{perfomance["aimed_host"]}?token={perfomance["token"]}', namespaces=['/baselinezcllbpxcgrye'], transports=['websocket'])
+        sio.connect(f'{perfomance["aimed_host"]}?token={perfomance["token"]}', namespaces=['/baselinelijrodbygxqc'], transports=['websocket'])
