@@ -168,14 +168,17 @@ class BaselineCommands(object):
             print(f'taskid is required argument, the command cannot be executed')
             return
 
+
         currentsessionid = get_current_session_id()
         currentepicrisisid = get_current_epicrisis_id()
         currenttasksid = get_current_task_id()
 
+
         if not currentsessionid or not currentepicrisisid or not currenttasksid:
             print(data_not_resolved_const)
             return
-
+        logger.info(dict(op='file-send-init', status='before-validation',
+                        message=dict(session=currentsessionid, task=taskid)))
         try:
             validator = Validator(path)
             validator.validate()
@@ -216,6 +219,8 @@ class BaselineCommands(object):
             print(tinmd)
             return
 
+        logger.info(dict(op='file-send-init', status='before-send',
+                        message=dict(session=currentsessionid, task=taskid)))
         a = dt.datetime.now()
         perfomance = get_perfomance()
         main_dir = os.path.dirname(os.path.abspath(__file__))
