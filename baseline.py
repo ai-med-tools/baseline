@@ -241,7 +241,7 @@ class BaselineCommands(object):
             logger.info(dict(op='file-send', status='error',
                         message=dict(code=406, session=currentsessionid, task=taskid, time=less)))
         if response.status_code == 409:
-            print(f'The preliminary diagnosis was sent again')
+            print(f'Error. there is already a preliminary diagnosis for this task on the platform')
             logger.info(dict(op='file-send', status='error',
                         message=dict(code=409, session=currentsessionid, task=taskid, time=less)))
         if response.status_code == 404:
