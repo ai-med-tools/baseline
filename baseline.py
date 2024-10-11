@@ -38,7 +38,7 @@ class BaselineCommands(object):
             ping = 'ping'
             sio = socketio.Client()
             sio.connect(f'{perfomance["aimed_host"]}?token={perfomance["token"]}&ping={ping}',
-                        namespaces=['/baselinelijrodbygxqc'],
+                        namespaces=['/baselineqkswxttralls'],
                         transports=['websocket'], wait=True, wait_timeout=3)
             sio.disconnect()
         except Exception as e:
@@ -168,14 +168,17 @@ class BaselineCommands(object):
             print(f'taskid is required argument, the command cannot be executed')
             return
 
+
         currentsessionid = get_current_session_id()
         currentepicrisisid = get_current_epicrisis_id()
         currenttasksid = get_current_task_id()
 
+
         if not currentsessionid or not currentepicrisisid or not currenttasksid:
             print(data_not_resolved_const)
             return
-
+        logger.info(dict(op='file-send-init', status='before-validation',
+                        message=dict(session=currentsessionid, task=taskid)))
         try:
             validator = Validator(path)
             validator.validate()
@@ -216,6 +219,8 @@ class BaselineCommands(object):
             print(tinmd)
             return
 
+        logger.info(dict(op='file-send-init', status='before-send',
+                        message=dict(session=currentsessionid, task=taskid)))
         a = dt.datetime.now()
         perfomance = get_perfomance()
         main_dir = os.path.dirname(os.path.abspath(__file__))
@@ -231,8 +236,12 @@ class BaselineCommands(object):
             print(f'The submitted response is not validated')
             logger.info(dict(op='file-send', status='error',
                         message=dict(code=400, session=currentsessionid, task=taskid, time=less)))
+        if response.status_code == 406:
+            print(f'Session has not started. The task exists, to send the result enter the start command')
+            logger.info(dict(op='file-send', status='error',
+                        message=dict(code=406, session=currentsessionid, task=taskid, time=less)))
         if response.status_code == 409:
-            print(f'The preliminary diagnosis was sent again')
+            print(f'Error. there is already a preliminary diagnosis for this task on the platform')
             logger.info(dict(op='file-send', status='error',
                         message=dict(code=409, session=currentsessionid, task=taskid, time=less)))
         if response.status_code == 404:
